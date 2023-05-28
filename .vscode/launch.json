@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "php docker (9001)",
+      "type": "php",
+      "request": "launch",
+      "port": 9001,
+      "log": false,
+      "stopOnEntry": false,
+      "pathMappings": {
+        "/var/www/html/": "${workspaceRoot}/"
+      }
+    },
+    {
+      "name": "php listen CLI",
+      "type": "php",
+      "port": 9000,
+      "stopOnEntry": false,
+      "request": "launch"
+    }
+  ]
+}
