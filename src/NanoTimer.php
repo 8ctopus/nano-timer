@@ -96,7 +96,7 @@ class NanoTimer
      *
      * @return array
      */
-    public function report() : array
+    public function data() : array
     {
         $i = 0;
         $first = 0;
@@ -145,7 +145,7 @@ class NanoTimer
      */
     public function table() : string
     {
-        $data = $this->report();
+        $data = $this->data();
 
         $max = 0;
 
@@ -173,7 +173,7 @@ class NanoTimer
      */
     public function line() : string
     {
-        $data = $this->report();
+        $data = $this->data();
 
         $line = '';
 
