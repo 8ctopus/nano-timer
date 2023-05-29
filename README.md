@@ -24,15 +24,14 @@ The main reason for this timer is to analyze slow requests that occur from time 
 
 - `composer require 8ctopus/nano-timer`
 
+## simple example
+
 ```php
 use Oct8pus\NanoTimer\NanoTimer;
 
-// to check autoload and nano timer constructor time
-$hrtime = hrtime(true);
-
 require_once __DIR__ . '/vendor/autoload.php';
 
-$timer = new NanoTimer($hrtime);
+$timer = new NanoTimer();
 
 usleep(200000);
 
@@ -44,7 +43,56 @@ foreach (range(0, 50000) as $i) {
 
 $timer->measure('range 0-50000');
 
-echo $timer->report(true);
+echo $timer->table();
+```
+
+```txt
+usleep 200ms     211ms
+range 0-50000     12ms
+total            223ms
+```
+
+## more advanced
+
+```php
+use Oct8pus\NanoTimer\NanoTimer;
+
+// to check autoload and nano timer constructor time
+$hrtime = hrtime(true);
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+$timer = new NanoTimer($hrtime);
+
+$timer
+    ->logMemoryPeakUse(true);
+
+$timer->measure('autoload and constructor');
+
+usleep(200000);
+
+$timer->measure('200ms sleep');
+
+sleep(1);
+
+$timer->measure('1s sleep');
+
+foreach (range(0, 50000) as $i) {
+    $a = $i * $i;
+}
+
+$timer->measure('pow range 0-50000');
+
+echo $timer->table();
+```
+
+```txt
+autoload and constructor   23ms
+200ms sleep               211ms
+1s sleep                 1012ms
+pow range 0-50000          13ms
+total                    1259ms
+memory peak use             4MB
 ```
 
 ## run tests
