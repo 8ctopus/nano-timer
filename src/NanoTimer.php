@@ -92,13 +92,11 @@ class NanoTimer
     }
 
     /**
-     * Get report
+     * Get report data
      *
-     * @param bool $table
-     *
-     * @return ?string
+     * @return array
      */
-    public function report(bool $table) : ?string
+    public function report() : array
     {
         $i = 0;
         $first = 0;
@@ -137,20 +135,18 @@ class NanoTimer
             $data[] = ['memory peak use' => "{$used}MB"];
         }
 
-        if ($table) {
-            return $this->table($data);
-        } else {
-            return $this->singleLine($data);
-        }
+        return $data;
     }
 
-    public function __toString() : string
+    /**
+     * Table report
+     *
+     * @return string
+     */
+    public function table() : string
     {
-        return $this->report(true);
-    }
+        $data = $this->report();
 
-    protected function table(array $data) : string
-    {
         $max = 0;
 
         foreach ($data as $row) {
@@ -170,8 +166,15 @@ class NanoTimer
         return $table;
     }
 
-    protected function singleLine(array $data) : string
+    /**
+     * Single line report
+     *
+     * @return string
+     */
+    public function line() : string
     {
+        $data = $this->report();
+
         $line = '';
 
         foreach ($data as $row) {
@@ -182,5 +185,10 @@ class NanoTimer
         }
 
         return rtrim($line, ' - ');
+    }
+
+    public function __toString() : string
+    {
+        return $this->table();
     }
 }
