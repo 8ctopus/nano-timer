@@ -6,8 +6,9 @@ namespace Oct8pus\NanoTimer;
 
 class NanoTimer
 {
-    private array $timings;
     private ?int $logSlowerThan;
+    private bool $autoLog;
+    private array $timings;
 
     /**
      * Constructor
@@ -17,11 +18,25 @@ class NanoTimer
     public function __construct(?float $hrtime = null)
     {
         $this->logSlowerThan = null;
+        $this->autoLog = false;
 
         if ($hrtime) {
             $this->timings[] = ['start', $hrtime];
         } else {
             $this->measure('start');
+        }
+    }
+
+    public function __destruct()
+    {
+        if ($this->autoLog) {
+            $this->measure('destruct');
+
+            $report = $this->report(true);
+
+            if ($report) {
+                error_log($report);
+            }
         }
     }
 
@@ -35,7 +50,6 @@ class NanoTimer
     public function measure(string $label) : self
     {
         $this->timings[] = [$label, hrtime(true)];
-
         return $this;
     }
 
@@ -43,12 +57,23 @@ class NanoTimer
      * Log only if total time more than
      *
      * @param  int    $milliseconds
-     * @return [type]
+     *
+     * @return self
      */
     public function logSlowerThan(int $milliseconds) : self
     {
         $this->logSlowerThan = $milliseconds;
+        return $this;
+    }
 
+    /**
+     * Automatically logs when destructor is called
+     *
+     * @return self
+     */
+    public function autoLog() : self
+    {
+        $this->autoLog = true;
         return $this;
     }
 
@@ -57,9 +82,9 @@ class NanoTimer
      *
      * @param bool $memoryUse
      *
-     * @return string
+     * @return ?string
      */
-    public function report(bool $memoryUse) : string
+    public function report(bool $memoryUse) : ?string
     {
         $message = '';
         $i = 0;
@@ -86,7 +111,7 @@ class NanoTimer
         $total = round(($time - $first) / 1000000, 0, PHP_ROUND_HALF_UP);
 
         if ($this->logSlowerThan && $total < $this->logSlowerThan) {
-            return '';
+            return null;
         }
 
         $message .= "total {$total}ms";

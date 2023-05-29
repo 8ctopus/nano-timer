@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Oct8pus\NanoTimer\NanoTimer;
 
-// to check autoload time
+// to check autoload and nano timer constructor time
 $hrtime = hrtime(true);
 
 require_once __DIR__ . '/vendor/autoload.php';

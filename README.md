@@ -17,14 +17,12 @@ Yet another php timer
 ```php
 use Oct8pus\NanoTimer\NanoTimer;
 
-// allows to check autoload time
+// to check autoload and nano timer constructor time
 $hrtime = hrtime(true);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 $timer = new NanoTimer($hrtime);
-
-$timer->measure('constructor');
 
 usleep(200000);
 
@@ -36,7 +34,7 @@ foreach (range(0, 50000) as $i) {
 
 $timer->measure('range 0-50000');
 
-echo $timer->log(true);
+echo $timer->report(true);
 ```
 
 ## run tests
