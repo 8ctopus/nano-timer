@@ -10,6 +10,16 @@
 
 Yet another php timer
 
+## why another timer?
+
+The main reason for this timer is to analyze slow requests that occur from time to time in the production environment where using tools such as XDebug is not advisable.
+
+## features
+
+- measure time between events
+- option to log only requests slower than a given threshold
+- option to automatically log report when the destructor is called
+
 ## install
 
 - `composer require 8ctopus/nano-timer`
