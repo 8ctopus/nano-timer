@@ -28,7 +28,7 @@ final class NanoTimerTest extends TestCase
 
         $output = "100ms sleep: {$delta}ms - total: {$delta}ms";
 
-        self::assertEquals($output, $timer->line());
+        self::assertSame($output, $timer->line());
     }
 
     public function testTable() : void
@@ -52,8 +52,8 @@ final class NanoTimerTest extends TestCase
 
         OUTPUT;
 
-        self::assertEquals($output, $timer->table());
-        self::assertEquals($output, (string) $timer);
+        self::assertSame($output, $timer->table());
+        self::assertSame($output, (string) $timer);
     }
 
     public function testPeakUse() : void
@@ -71,7 +71,7 @@ final class NanoTimerTest extends TestCase
 
         OUTPUT;
 
-        self::assertEquals($output, $timer->table());
+        self::assertSame($output, $timer->table());
     }
 
     public function testLogSlowerThan() : void
