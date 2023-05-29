@@ -97,16 +97,11 @@ final class NanoTimerTest extends TestCase
     {
         static::expectOutputString('test: 0ms - destruct: 0ms - total: 0ms');
 
-        try {
-            $timer = new NanoTimerMock();
+        $timer = new NanoTimerMock();
 
-            $timer
-                ->autoLog()
-                ->measure('test');
-
-            unset($timer);
-        } finally {
-        }
+        $timer
+            ->autoLog()
+            ->measure('test');
     }
 }
 
