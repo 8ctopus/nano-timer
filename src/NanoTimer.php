@@ -6,8 +6,10 @@ namespace Oct8pus\NanoTimer;
 
 class NanoTimer
 {
+    private bool $logMemoryPeakUse;
     private ?int $logSlowerThan;
     private bool $autoLog;
+
     private array $timings;
 
     /**
@@ -17,6 +19,7 @@ class NanoTimer
      */
     public function __construct(?float $hrtime = null)
     {
+        $this->logMemoryPeakUse = false;
         $this->logSlowerThan = null;
         $this->autoLog = false;
 
@@ -54,6 +57,17 @@ class NanoTimer
     }
 
     /**
+     * Log peak memory use
+     *
+     * @return self
+     */
+    public function logMemoryPeakUse() : self
+    {
+        $this->logMemoryPeakUse = true;
+        return $this;
+    }
+
+    /**
      * Log only if total time more than
      *
      * @param  int    $milliseconds
@@ -80,16 +94,16 @@ class NanoTimer
     /**
      * Get report
      *
-     * @param bool $memoryUse
+     * @param bool $table
      *
      * @return ?string
      */
-    public function report(bool $memoryUse) : ?string
+    public function report(bool $table) : ?string
     {
-        $message = '';
         $i = 0;
         $first = 0;
         $last = 0;
+        $data = [];
 
         foreach ($this->timings as $timing) {
             $label = $timing[0];
@@ -103,7 +117,7 @@ class NanoTimer
 
             $current = round(($time - $last) / 1000000, 0, PHP_ROUND_HALF_UP);
 
-            $message .= "{$label} {$current}ms - ";
+            $data[] = [$label => "{$current}ms"];
 
             $last = $time;
         }
@@ -114,20 +128,59 @@ class NanoTimer
             return null;
         }
 
-        $message .= "total {$total}ms";
+        $data[] = ['total' => "{$total}ms"];
 
-        if ($memoryUse) {
+        if ($this->logMemoryPeakUse) {
             $used = memory_get_peak_usage(true);
             $used = round($used / (1024 * 1024), 1, PHP_ROUND_HALF_UP);
 
-            $message .= " - peak use {$used}MB";
+            $data[] = ['memory peak use' => "{$used}MB"];
         }
 
-        return $message;
+        if ($table) {
+            return $this->table($data);
+        } else {
+            return $this->singleLine($data);
+        }
     }
 
     public function __toString() : string
     {
         return $this->report(true);
+    }
+
+    protected function table(array $data) : string
+    {
+        $max = 0;
+
+        foreach ($data as $row) {
+            $key = key($row);
+            $max = max($max, strlen($key));
+        }
+
+        $table = '';
+
+        foreach ($data as $row) {
+            $key = key($row);
+            $value = $row[$key];
+
+            $table .= str_pad($key, $max + 1, ' ', STR_PAD_RIGHT) . str_pad($value, 6, ' ', STR_PAD_LEFT) . PHP_EOL;
+        }
+
+        return $table;
+    }
+
+    protected function singleLine(array $data) : string
+    {
+        $line = '';
+
+        foreach ($data as $row) {
+            $key = key($row);
+            $value = $row[$key];
+
+            $line .= "{$key}: {$value} - ";
+        }
+
+        return rtrim($line, ' - ');
     }
 }
