@@ -35,7 +35,7 @@ class NanoTimer
         if ($this->autoLog) {
             $this->measure('destruct');
 
-            $report = $this->report(true);
+            $report = $this->line(true);
 
             if ($report) {
                 error_log($report);
