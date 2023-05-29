@@ -10,14 +10,17 @@ class NanoTimer
     private ?int $logSlowerThan;
     private bool $autoLog;
 
+    /**
+     * @var array<int,array<string,int>>
+     */
     private array $timings;
 
     /**
      * Constructor
      *
-     * @param ?float $hrtime
+     * @param ?int $hrtime
      */
-    public function __construct(?float $hrtime = null)
+    public function __construct(?int $hrtime = null)
     {
         $this->logMemoryPeakUse = false;
         $this->logSlowerThan = null;
@@ -38,7 +41,7 @@ class NanoTimer
 
         $this
             ->measure('destruct')
-            ->errorLog($this->line(true));
+            ->errorLog($this->line());
     }
 
     public function __toString() : string
