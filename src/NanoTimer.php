@@ -183,6 +183,10 @@ class NanoTimer
             $last = $time;
         }
 
+        if ($index === 0) {
+            return null;
+        }
+
         $total = round(($time - $first) / 1000000, 0, PHP_ROUND_HALF_UP);
 
         if ($this->logSlowerThan && $total < $this->logSlowerThan) {
