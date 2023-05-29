@@ -17,8 +17,8 @@ The main reason for this timer is to analyze slow requests that occur from time 
 ## features
 
 - measure time between events
-- option to log only requests slower than a given threshold
-- option to automatically log report when the destructor is called
+- log only requests slower than a given threshold
+- automatically log when the destructor is called
 
 ## install
 
@@ -54,10 +54,13 @@ total            223ms
 
 ## more advanced
 
+- log autoload and constructor time
+- log peak memory use
+
 ```php
 use Oct8pus\NanoTimer\NanoTimer;
 
-// to check autoload and nano timer constructor time
+// check autoload and constructor time
 $hrtime = hrtime(true);
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -93,6 +96,26 @@ autoload and constructor   23ms
 pow range 0-50000          13ms
 total                    1259ms
 memory peak use             4MB
+```
+
+## only log measurements slower than
+
+It's sometimes useful to only log measurements slower than a given threshold.
+
+```php
+$timer = new NanoTimer();
+
+$timer
+    ->logSlowerThan(100)
+    ->autoLog();
+
+...
+```
+
+In this example, the request will automatically be logged to the error log when the destructor is called if the total time spent is more than 100 milliseconds.
+
+```txt
+destruct: 614ms - total: 614ms
 ```
 
 ## run tests
