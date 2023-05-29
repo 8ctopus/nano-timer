@@ -209,7 +209,7 @@ class NanoTimer
     {
         // @codeCoverageIgnoreStart
         if (!empty($log)) {
-            error_log($log);
+            error_log("nanotimer - {$log}");
         }
 
         return $this;
