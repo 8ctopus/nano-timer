@@ -12,7 +12,7 @@ Yet another php timer
 
 ## why another timer?
 
-The main reason for this timer is to analyze slow requests that occur from time to time in production where using tools such as XDebug is not advisable.
+The main reason for this timer is to analyze slow requests that occur from time to time in production where using tools such as [XDebug](https://github.com/xdebug/xdebug) or [php SPX](https://github.com/NoiseByNorthwest/php-spx) is not advisable.
 
 ## features
 
