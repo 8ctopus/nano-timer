@@ -78,9 +78,9 @@ final class NanoTimerTest extends TestCase
     {
         $timer = new NanoTimer();
 
-        $timer->logSlowerThan(50);
-
-        $timer->measure('fast request');
+        $timer
+            ->logSlowerThan(50)
+            ->measure('fast request');
 
         self::assertEmpty($timer->table());
         self::assertEmpty($timer->line());
