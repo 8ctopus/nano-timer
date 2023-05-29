@@ -11,7 +11,7 @@ class NanoTimer
     private bool $autoLog;
 
     /**
-     * @var array<int,array<string,int>>
+     * @var array<int, array<string, int>>
      */
     private array $timings;
 
@@ -27,7 +27,7 @@ class NanoTimer
         $this->autoLog = false;
 
         if ($hrtime) {
-            $this->timings[] = ['start', $hrtime];
+            $this->timings[] = ['start' => $hrtime];
         } else {
             $this->measure('start');
         }
@@ -58,7 +58,7 @@ class NanoTimer
      */
     public function measure(string $label) : self
     {
-        $this->timings[] = [$label, hrtime(true)];
+        $this->timings[] = [$label => hrtime(true)];
         return $this;
     }
 
@@ -157,7 +157,7 @@ class NanoTimer
     /**
      * Get report data
      *
-     * @return ?array
+     * @return ?array<int, array<string, string>>
      */
     protected function data() : ?array
     {
@@ -166,9 +166,9 @@ class NanoTimer
         $last = 0;
         $data = [];
 
-        foreach ($this->timings as $timing) {
-            $label = $timing[0];
-            $time = $timing[1];
+        foreach ($this->timings as $row) {
+            $label = key($row);
+            $time = $row[$label];
 
             if ($index++ === 0) {
                 $first = $time;
