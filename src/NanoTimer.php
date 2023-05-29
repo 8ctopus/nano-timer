@@ -158,7 +158,7 @@ class NanoTimer
      */
     protected function data() : ?array
     {
-        $i = 0;
+        $index = 0;
         $first = 0;
         $last = 0;
         $data = [];
@@ -167,7 +167,7 @@ class NanoTimer
             $label = $timing[0];
             $time = $timing[1];
 
-            if ($i++ === 0) {
+            if ($index++ === 0) {
                 $first = $time;
                 $last = $time;
                 continue;
