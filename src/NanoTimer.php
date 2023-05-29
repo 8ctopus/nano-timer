@@ -200,10 +200,12 @@ class NanoTimer
 
     protected function errorLog(string $log) : self
     {
+        // @codeCoverageIgnoreStart
         if (!empty($log)) {
             error_log($log);
         }
 
         return $this;
+        // @codeCoverageIgnoreEnd
     }
 }
