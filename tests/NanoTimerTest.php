@@ -63,7 +63,11 @@ final class NanoTimerTest extends TestCase
         $timer->logMemoryPeakUse();
 
         $used = memory_get_peak_usage(true);
-        $used = round($used / (1024 * 1024), 1, PHP_ROUND_HALF_UP);
+        $used = (string) round($used / (1024 * 1024), 1, PHP_ROUND_HALF_UP);
+
+        if (strlen($used) === 1) {
+            $used = ' ' . $used;
+        }
 
         $output = <<<OUTPUT
         total              0ms
