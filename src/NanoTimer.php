@@ -41,6 +41,11 @@ class NanoTimer
             ->errorLog($this->line(true));
     }
 
+    public function __toString() : string
+    {
+        return $this->table();
+    }
+
     /**
      * Make measurement
      *
@@ -68,7 +73,7 @@ class NanoTimer
     /**
      * Log only if total time more than
      *
-     * @param  int    $milliseconds
+     * @param int $milliseconds
      *
      * @return self
      */
@@ -144,11 +149,6 @@ class NanoTimer
         }
 
         return rtrim($line, ' - ');
-    }
-
-    public function __toString() : string
-    {
-        return $this->table();
     }
 
     /**

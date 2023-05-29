@@ -28,7 +28,7 @@ final class NanoTimerTest extends TestCase
 
         $output = "100ms sleep: {$delta}ms - total: {$delta}ms";
 
-        static::assertEquals($output, $timer->line());
+        self::assertEquals($output, $timer->line());
     }
 
     public function testTable() : void
@@ -52,8 +52,8 @@ final class NanoTimerTest extends TestCase
 
         OUTPUT;
 
-        static::assertEquals($output, $timer->table());
-        static::assertEquals($output, (string) $timer);
+        self::assertEquals($output, $timer->table());
+        self::assertEquals($output, (string) $timer);
     }
 
     public function testPeakUse() : void
@@ -71,7 +71,7 @@ final class NanoTimerTest extends TestCase
 
         OUTPUT;
 
-        static::assertEquals($output, $timer->table());
+        self::assertEquals($output, $timer->table());
     }
 
     public function testLogSlowerThan() : void
@@ -82,20 +82,20 @@ final class NanoTimerTest extends TestCase
 
         $timer->measure('fast request');
 
-        static::assertEmpty($timer->table());
-        static::assertEmpty($timer->line());
+        self::assertEmpty($timer->table());
+        self::assertEmpty($timer->line());
 
         usleep(51000);
 
         $timer->measure('slow request');
 
-        static::assertNotEmpty($timer->table());
-        static::assertNotEmpty($timer->line());
+        self::assertNotEmpty($timer->table());
+        self::assertNotEmpty($timer->line());
     }
 
     public function testAutoLog() : void
     {
-        static::expectOutputString('test: 0ms - destruct: 0ms - total: 0ms');
+        self::expectOutputString('test: 0ms - destruct: 0ms - total: 0ms');
 
         $timer = new NanoTimerMock();
 
@@ -109,7 +109,7 @@ class NanoTimerMock extends NanoTimer
 {
     protected function errorLog(string $log) : self
     {
-        echo($log);
+        echo $log;
         return $this;
     }
 }
