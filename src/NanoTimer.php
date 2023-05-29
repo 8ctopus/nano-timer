@@ -32,15 +32,13 @@ class NanoTimer
 
     public function __destruct()
     {
-        if ($this->autoLog) {
-            $this->measure('destruct');
-
-            $report = $this->line(true);
-
-            if ($report) {
-                error_log($report);
-            }
+        if (!$this->autoLog) {
+            return;
         }
+
+        $this
+            ->measure('destruct')
+            ->errorLog($this->line(true));
     }
 
     /**
@@ -92,11 +90,73 @@ class NanoTimer
     }
 
     /**
+     * Table report
+     *
+     * @return string
+     */
+    public function table() : string
+    {
+        $data = $this->data();
+
+        if ($data === null) {
+            return '';
+        }
+
+        $max = 0;
+
+        foreach ($data as $row) {
+            $key = key($row);
+            $max = max($max, strlen($key));
+        }
+
+        $table = '';
+
+        foreach ($data as $row) {
+            $key = key($row);
+            $value = $row[$key];
+
+            $table .= str_pad($key, $max + 1, ' ', STR_PAD_RIGHT) . str_pad($value, 6, ' ', STR_PAD_LEFT) . "\n";
+        }
+
+        return $table;
+    }
+
+    /**
+     * Single line report
+     *
+     * @return string
+     */
+    public function line() : string
+    {
+        $data = $this->data();
+
+        if ($data === null) {
+            return '';
+        }
+
+        $line = '';
+
+        foreach ($data as $row) {
+            $key = key($row);
+            $value = $row[$key];
+
+            $line .= "{$key}: {$value} - ";
+        }
+
+        return rtrim($line, ' - ');
+    }
+
+    public function __toString() : string
+    {
+        return $this->table();
+    }
+
+    /**
      * Get report data
      *
-     * @return array
+     * @return ?array
      */
-    public function data() : array
+    protected function data() : ?array
     {
         $i = 0;
         $first = 0;
@@ -138,57 +198,12 @@ class NanoTimer
         return $data;
     }
 
-    /**
-     * Table report
-     *
-     * @return string
-     */
-    public function table() : string
+    protected function errorLog(string $log) : self
     {
-        $data = $this->data();
-
-        $max = 0;
-
-        foreach ($data as $row) {
-            $key = key($row);
-            $max = max($max, strlen($key));
+        if (!empty($log)) {
+            error_log($log);
         }
 
-        $table = '';
-
-        foreach ($data as $row) {
-            $key = key($row);
-            $value = $row[$key];
-
-            $table .= str_pad($key, $max + 1, ' ', STR_PAD_RIGHT) . str_pad($value, 6, ' ', STR_PAD_LEFT) . PHP_EOL;
-        }
-
-        return $table;
-    }
-
-    /**
-     * Single line report
-     *
-     * @return string
-     */
-    public function line() : string
-    {
-        $data = $this->data();
-
-        $line = '';
-
-        foreach ($data as $row) {
-            $key = key($row);
-            $value = $row[$key];
-
-            $line .= "{$key}: {$value} - ";
-        }
-
-        return rtrim($line, ' - ');
-    }
-
-    public function __toString() : string
-    {
-        return $this->table();
+        return $this;
     }
 }
