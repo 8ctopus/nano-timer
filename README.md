@@ -19,6 +19,7 @@ The main reason for this timer is to analyze slow requests that occur from time 
 - measure time between events
 - log only requests slower than a given threshold
 - automatically log when the destructor is called
+- measure peak memory use
 
 ## install
 
