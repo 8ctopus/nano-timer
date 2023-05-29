@@ -17,9 +17,26 @@ Yet another php timer
 ```php
 use Oct8pus\NanoTimer\NanoTimer;
 
-require_once 'vendor/autoload.php';
+// allows to check autoload time
+$hrtime = hrtime(true);
 
-$timer = new NanoTimer();
+require_once __DIR__ . '/vendor/autoload.php';
+
+$timer = new NanoTimer($hrtime);
+
+$timer->measure('constructor');
+
+usleep(200000);
+
+$timer->measure('usleep 200ms');
+
+foreach (range(0, 50000) as $i) {
+    $a = $i * $i;
+}
+
+$timer->measure('range 0-50000');
+
+echo $timer->log(true);
 ```
 
 ## run tests

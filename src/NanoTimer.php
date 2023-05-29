@@ -12,22 +12,21 @@ class NanoTimer
     /**
      * Constructor
      *
-     * @param ?int $logSlowerThan
      * @param ?float $hrtime
      */
-    public function __construct(?float $hrtime, ?int $logSlowerThan)
+    public function __construct(?float $hrtime = null)
     {
+        $this->logSlowerThan = null;
+
         if ($hrtime) {
             $this->timings[] = ['start', $hrtime];
         } else {
             $this->measure('start');
         }
-
-        $this->logSlowerThan = $logSlowerThan;
     }
 
     /**
-     * Measure
+     * Make measurement
      *
      * @param string $label
      *
@@ -41,13 +40,26 @@ class NanoTimer
     }
 
     /**
-     * Log elapsed time
+     * Log only if total time more than
+     *
+     * @param  int    $milliseconds
+     * @return [type]
+     */
+    public function logSlowerThan(int $milliseconds) : self
+    {
+        $this->logSlowerThan = $milliseconds;
+
+        return $this;
+    }
+
+    /**
+     * Get report
      *
      * @param bool $memoryUse
      *
      * @return string
      */
-    public function log(bool $memoryUse) : string
+    public function report(bool $memoryUse) : string
     {
         $message = '';
         $i = 0;
@@ -91,6 +103,6 @@ class NanoTimer
 
     public function __toString() : string
     {
-        return $this->log(true);
+        return $this->report(true);
     }
 }
