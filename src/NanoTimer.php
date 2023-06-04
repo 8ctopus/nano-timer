@@ -9,6 +9,7 @@ class NanoTimer
     private bool $logMemoryPeakUse;
     private ?int $logSlowerThan;
     private bool $autoLog;
+    private string $label;
 
     /**
      * @var array<int, array<string, int>>
@@ -25,6 +26,7 @@ class NanoTimer
         $this->logMemoryPeakUse = false;
         $this->logSlowerThan = null;
         $this->autoLog = false;
+        $this->label = 'nanotimer';
 
         if ($hrtime) {
             $this->timings[] = ['start' => $hrtime];
@@ -41,7 +43,7 @@ class NanoTimer
 
         $this
             ->measure('destruct')
-            ->errorLog($this->line());
+            ->log($this->line());
     }
 
     public function __toString() : string
@@ -154,6 +156,12 @@ class NanoTimer
         return rtrim($line, ' - ');
     }
 
+    public function setLabel(string $label) : self
+    {
+        $this->label = $label;
+        return $this;
+    }
+
     /**
      * Get report data
      *
@@ -205,14 +213,19 @@ class NanoTimer
         return $data;
     }
 
-    protected function errorLog(string $log) : self
+    private function log(string $log) : self
     {
-        // @codeCoverageIgnoreStart
         if (!empty($log)) {
-            error_log("nanotimer - {$log}");
+            $this->errorLog("{$this->label} - {$log}");
         }
 
         return $this;
+    }
+
+    protected function errorLog(string $message) : void
+    {
+        // @codeCoverageIgnoreStart
+        error_log($message);
         // @codeCoverageIgnoreEnd
     }
 }

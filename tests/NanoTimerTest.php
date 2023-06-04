@@ -99,7 +99,7 @@ final class NanoTimerTest extends TestCase
 
     public function testAutoLog() : void
     {
-        self::expectOutputString('test: 0ms - destruct: 0ms - total: 0ms');
+        self::expectOutputString('nanotimer - test: 0ms - destruct: 0ms - total: 0ms');
 
         $timer = new NanoTimerMock();
 
@@ -107,13 +107,24 @@ final class NanoTimerTest extends TestCase
             ->autoLog()
             ->measure('test');
     }
+
+    public function testAutoLog2() : void
+    {
+        self::expectOutputString('hello world - test: 0ms - destruct: 0ms - total: 0ms');
+
+        $timer = new NanoTimerMock();
+
+        $timer
+            ->setLabel('hello world')
+            ->autoLog()
+            ->measure('test');
+    }
 }
 
 class NanoTimerMock extends NanoTimer
 {
-    protected function errorLog(string $log) : self
+    protected function errorLog(string $message) : void
     {
-        echo $log;
-        return $this;
+        echo($message);
     }
 }
