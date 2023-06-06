@@ -119,6 +119,21 @@ final class NanoTimerTest extends TestCase
 
         self::expectOutputString('hello world - total: 0ms - test: 0ms - destruct: 0ms');
     }
+
+    public function testAutoLogPeakUseMemory() : void
+    {
+        $timer = new NanoTimerMock();
+
+        $timer
+            ->autoLog()
+            ->logMemoryPeakUse()
+            ->measure('test');
+
+        $used = memory_get_peak_usage(true);
+        $used = round($used / (1024 * 1024), 1, PHP_ROUND_HALF_UP);
+
+        self::expectOutputString("nanotimer - total: 0ms - test: 0ms - destruct: 0ms - memory peak use: {$used}MB");
+    }
 }
 
 class NanoTimerMock extends NanoTimer

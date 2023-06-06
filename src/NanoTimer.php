@@ -145,9 +145,14 @@ class NanoTimer
         }
 
         // move total to first position
-        $count = count($data);
-        array_unshift($data, $data[$count -1]);
-        unset($data[$count]);
+        $index = count($data) - 1;
+
+        if ($this->logMemoryPeakUse) {
+            --$index;
+        }
+
+        array_unshift($data, $data[$index]);
+        unset($data[$index + 1]);
 
         $line = '';
 
