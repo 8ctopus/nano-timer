@@ -144,6 +144,11 @@ class NanoTimer
             return '';
         }
 
+        // move total to first position
+        $count = count($data);
+        array_unshift($data, $data[$count -1]);
+        unset($data[$count]);
+
         $line = '';
 
         foreach ($data as $row) {

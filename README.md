@@ -116,7 +116,7 @@ $timer
 In this example, the request will automatically be logged to the error log when the destructor is called if the total time spent is more than 100 milliseconds.
 
 ```txt
-destruct: 614ms - total: 614ms
+nanotimer - total: 614ms - destruct: 614ms
 ```
 
 ## run tests

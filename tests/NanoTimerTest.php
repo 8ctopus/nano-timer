@@ -26,7 +26,7 @@ final class NanoTimerTest extends TestCase
 
         $delta = round((microtime(true) - $microtime) * 1000, 0, PHP_ROUND_HALF_UP);
 
-        $output = "100ms sleep: {$delta}ms - total: {$delta}ms";
+        $output = "total: {$delta}ms - 100ms sleep: {$delta}ms";
 
         self::assertSame($output, $timer->line());
     }
@@ -99,25 +99,25 @@ final class NanoTimerTest extends TestCase
 
     public function testAutoLog() : void
     {
-        self::expectOutputString('nanotimer - test: 0ms - destruct: 0ms - total: 0ms');
-
         $timer = new NanoTimerMock();
 
         $timer
             ->autoLog()
             ->measure('test');
+
+        self::expectOutputString('nanotimer - total: 0ms - test: 0ms - destruct: 0ms');
     }
 
     public function testAutoLog2() : void
     {
-        self::expectOutputString('hello world - test: 0ms - destruct: 0ms - total: 0ms');
-
         $timer = new NanoTimerMock();
 
         $timer
             ->setLabel('hello world')
             ->autoLog()
             ->measure('test');
+
+        self::expectOutputString('hello world - total: 0ms - test: 0ms - destruct: 0ms');
     }
 }
 
