@@ -119,11 +119,13 @@ class NanoTimer
 
         $max = 0;
 
+        // get data max character length
         foreach ($data as $row) {
             $key = key($row);
             $max = max($max, strlen($key));
         }
 
+        // create table
         $table = '';
 
         foreach ($data as $row) {
