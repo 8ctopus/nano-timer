@@ -185,7 +185,8 @@ class NanoTimer
     /**
      * Log to error
      *
-     * @param  string $log
+     * @param string $log
+     *
      * @return self
      */
     public function log(string $log) : self
@@ -251,7 +252,8 @@ class NanoTimer
     /**
      * Error log function that can be overriden in tests
      *
-     * @param  string $message
+     * @param string $message
+     *
      * @return void
      */
     protected function errorLog(string $message) : void

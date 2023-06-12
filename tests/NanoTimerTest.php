@@ -140,6 +140,6 @@ class NanoTimerMock extends NanoTimer
 {
     protected function errorLog(string $message) : void
     {
-        echo($message);
+        echo $message;
     }
 }
