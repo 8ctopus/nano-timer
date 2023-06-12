@@ -43,7 +43,7 @@ class NanoTimer
 
         $this
             ->measure('destruct')
-            ->log($this->line());
+            ->log();
     }
 
     /**
@@ -187,12 +187,12 @@ class NanoTimer
     /**
      * Log to error
      *
-     * @param string $log
-     *
      * @return self
      */
-    public function log(string $log) : self
+    public function log() : self
     {
+        $log = $this->line();
+
         if (!empty($log)) {
             $this->errorLog("{$this->label} - {$log}");
         }
