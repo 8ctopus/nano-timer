@@ -46,6 +46,11 @@ class NanoTimer
             ->log($this->line());
     }
 
+    /**
+     * To string
+     *
+     * @return string
+     */
     public function __toString() : string
     {
         return $this->table();
@@ -166,9 +171,29 @@ class NanoTimer
         return rtrim($line, ' - ');
     }
 
+    /**
+     * Set timer label
+     *
+     * @param string $label
+     */
     public function setLabel(string $label) : self
     {
         $this->label = $label;
+        return $this;
+    }
+
+    /**
+     * Log to error
+     *
+     * @param  string $log
+     * @return self
+     */
+    public function log(string $log) : self
+    {
+        if (!empty($log)) {
+            $this->errorLog("{$this->label} - {$log}");
+        }
+
         return $this;
     }
 
@@ -177,7 +202,7 @@ class NanoTimer
      *
      * @return ?array<int, array<string, string>>
      */
-    protected function data() : ?array
+    public function data() : ?array
     {
         $index = 0;
         $first = 0;
@@ -223,15 +248,12 @@ class NanoTimer
         return $data;
     }
 
-    private function log(string $log) : self
-    {
-        if (!empty($log)) {
-            $this->errorLog("{$this->label} - {$log}");
-        }
-
-        return $this;
-    }
-
+    /**
+     * Error log function that can be overriden in tests
+     *
+     * @param  string $message
+     * @return void
+     */
     protected function errorLog(string $message) : void
     {
         // @codeCoverageIgnoreStart
