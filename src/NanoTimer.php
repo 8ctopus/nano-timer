@@ -96,11 +96,13 @@ class NanoTimer
     /**
      * Automatically logs when destructor is called
      *
+     * @param bool $autoLog
+     *
      * @return self
      */
-    public function autoLog() : self
+    public function autoLog(bool $autoLog = true) : self
     {
-        $this->autoLog = true;
+        $this->autoLog = $autoLog;
         return $this;
     }
 
