@@ -134,10 +134,24 @@ final class NanoTimerTest extends TestCase
 
         self::expectOutputString("nanotimer - total: 0ms - test: 0ms - destruct: 0ms - memory peak use: {$used}MB");
     }
+
+    public function testStartTime() : void
+    {
+        $time = hrtime(true);
+
+        $timer = new NanoTimerMock($time);
+
+        self::assertSame($time, $timer->startTime());
+    }
 }
 
 class NanoTimerMock extends NanoTimer
 {
+    public function __construct(?int $hrtime = null)
+    {
+        parent::__construct($hrtime);
+    }
+
     protected function errorLog(string $message) : void
     {
         echo $message;

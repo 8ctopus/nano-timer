@@ -254,6 +254,16 @@ class NanoTimer
     }
 
     /**
+     * Get start time
+     *
+     * @return int
+     */
+    public function startTime() : int
+    {
+        return $this->timings[0]['start'];
+    }
+
+    /**
      * Error log function that can be overriden in tests
      *
      * @param string $message
