@@ -143,6 +143,21 @@ final class NanoTimerTest extends TestCase
 
         self::assertSame($time, $timer->startTime());
     }
+
+    public function testLastMeasure() : void
+    {
+        $time = hrtime(true);
+
+        $timer = new NanoTimerMock($time);
+
+        $last = $timer
+            ->measure('test1')
+            ->measure('test2')
+            ->measure('test3')
+            ->last();
+
+        self::assertMatchesRegularExpression('~test3: \d{1,2}ms~', $last);
+    }
 }
 
 class NanoTimerMock extends NanoTimer

@@ -264,6 +264,25 @@ class NanoTimer
     }
 
     /**
+     * Get last measurement
+     *
+     * @return string
+     */
+    public function last() : string
+    {
+        $count = count($this->timings);
+
+        $last = $this->timings[$count - 1];
+        $before = $this->timings[$count - 2];
+
+        $delta = $last[key($last)] - $before[key($before)];
+
+        $delta = round($delta / 1000000, 0, PHP_ROUND_HALF_UP);
+
+        return key($last) . ": {$delta}ms";
+    }
+
+    /**
      * Error log function that can be overriden in tests
      *
      * @param string $message

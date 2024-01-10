@@ -30,4 +30,6 @@ foreach (range(0, 50000) as $i) {
 
 $timer->measure('pow range 0-50000');
 
+echo $timer->last() . PHP_EOL;
+
 echo $timer->table();
