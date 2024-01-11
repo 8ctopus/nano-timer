@@ -158,6 +158,23 @@ final class NanoTimerTest extends TestCase
 
         self::assertMatchesRegularExpression('~test3: \d{1,2}ms~', $last);
     }
+
+    public function testTotal() : void
+    {
+        $timer = new NanoTimer(hrtime(true));
+
+        $microtime = microtime(true);
+
+        time_sleep_until($microtime + 0.1);
+
+        $timer->measure('100ms sleep');
+
+        $delta = round((microtime(true) - $microtime) * 1000, 0, PHP_ROUND_HALF_UP);
+
+        $output = "{$delta}ms";
+
+        self::assertSame($output, $timer->total());
+    }
 }
 
 class NanoTimerMock extends NanoTimer

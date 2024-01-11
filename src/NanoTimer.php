@@ -283,6 +283,24 @@ class NanoTimer
     }
 
     /**
+     * Get total
+     *
+     * @return string
+     */
+    public function total() : string
+    {
+        $data = $this->data();
+
+        $count = count($data);
+
+        if ($this->logMemoryPeakUse) {
+            $count -1;
+        }
+
+        return $data[$count - 1]['total'];
+    }
+
+    /**
      * Error log function that can be overriden in tests
      *
      * @param string $message
