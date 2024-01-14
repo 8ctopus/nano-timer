@@ -12,9 +12,9 @@ class NanoTimer
     private string $label;
 
     /**
-     * @var array<int, array<string, int>>
+     * @var Measures[]
      */
-    private array $timings;
+    private array $measures;
 
     /**
      * Constructor
@@ -28,11 +28,8 @@ class NanoTimer
         $this->autoLog = false;
         $this->label = 'nanotimer';
 
-        if ($hrtime) {
-            $this->timings[] = ['start' => $hrtime];
-        } else {
-            $this->measure('start');
-        }
+        $this->measures = [];
+        $this->measures[] = new TimeMeasure('start', $hrtime);
     }
 
     public function __destruct()
@@ -65,7 +62,8 @@ class NanoTimer
      */
     public function measure(string $label) : self
     {
-        $this->timings[] = [$label => hrtime(true)];
+        $this->measures[] = new TimeMeasure($label);
+
         return $this;
     }
 
@@ -123,18 +121,14 @@ class NanoTimer
 
         // get data max character length
         foreach ($data as $row) {
-            $key = key($row);
-            $max = max($max, strlen($key));
+            $max = max($max, strlen($row->label()));
         }
 
         // create table
         $table = '';
 
         foreach ($data as $row) {
-            $key = key($row);
-            $value = $row[$key];
-
-            $table .= str_pad($key, $max + 1, ' ', STR_PAD_RIGHT) . str_pad($value, 6, ' ', STR_PAD_LEFT) . "\n";
+            $table .= str_pad($row->label(), $max + 1, ' ', STR_PAD_RIGHT) . str_pad($row->str(), 6, ' ', STR_PAD_LEFT) . "\n";
         }
 
         return $table;
@@ -166,10 +160,15 @@ class NanoTimer
         $line = '';
 
         foreach ($data as $row) {
-            $key = key($row);
-            $value = $row[$key];
+            $label = $row->label();
 
-            $line .= "{$key}: {$value} - ";
+            if ($row instanceof TimeMeasure) {
+                $value = $row->time() . 'ms';
+            } else {
+                $value = $row->memory() . 'MB';
+            }
+
+            $line .= "{$label}: {$value} - ";
         }
 
         return rtrim($line, ' - ');
@@ -205,7 +204,7 @@ class NanoTimer
     /**
      * Get report data
      *
-     * @return ?array<int, array<string, string>>
+     * @return ?Measures[]
      */
     public function data() : ?array
     {
@@ -214,9 +213,8 @@ class NanoTimer
         $last = 0;
         $data = [];
 
-        foreach ($this->timings as $row) {
-            $label = key($row);
-            $time = $row[$label];
+        foreach ($this->measures as $row) {
+            $time = $row->hrtime();
 
             if ($index++ === 0) {
                 $first = $time;
@@ -224,9 +222,9 @@ class NanoTimer
                 continue;
             }
 
-            $current = round(($time - $last) / 1000000, 0, PHP_ROUND_HALF_UP);
+            //$current = round(($time - $last) / 1000000, 0, PHP_ROUND_HALF_UP);
 
-            $data[] = [$label => "{$current}ms"];
+            $data[] = new TimeMeasure($row->label(), $time - $last);
 
             $last = $time;
         }
@@ -235,19 +233,18 @@ class NanoTimer
             return null;
         }
 
-        $total = round(($time - $first) / 1000000, 0, PHP_ROUND_HALF_UP);
+        //$total = round(($time - $first) / 1000000, 0, PHP_ROUND_HALF_UP);
+        $total = $time - $first;
 
-        if ($this->logSlowerThan && $total < $this->logSlowerThan) {
+        //$data[] = ['total' => "{$total}ms"];
+        $data[] = new TimeMeasure('total', $total);
+
+        if ($this->logSlowerThan && round(($total) / 1000000, 0, PHP_ROUND_HALF_UP) < $this->logSlowerThan) {
             return null;
         }
 
-        $data[] = ['total' => "{$total}ms"];
-
         if ($this->logMemoryPeakUse) {
-            $used = memory_get_peak_usage(true);
-            $used = round($used / (1024 * 1024), 1, PHP_ROUND_HALF_UP);
-
-            $data[] = ['memory peak use' => "{$used}MB"];
+            $data[] = new MemoryMeasure('memory peak use');
         }
 
         return $data;
@@ -260,7 +257,7 @@ class NanoTimer
      */
     public function startTime() : int
     {
-        return $this->timings[0]['start'];
+        return (int) $this->measures[0]->hrtime();
     }
 
     /**
@@ -270,16 +267,16 @@ class NanoTimer
      */
     public function last() : string
     {
-        $count = count($this->timings);
+        $count = count($this->measures);
 
-        $last = $this->timings[$count - 1];
-        $before = $this->timings[$count - 2];
+        $last = $this->measures[$count - 1];
+        $before = $this->measures[$count - 2];
 
-        $delta = $last[key($last)] - $before[key($before)];
+        $delta = $last->hrtime() - $before->hrtime();
 
         $delta = round($delta / 1000000, 0, PHP_ROUND_HALF_UP);
 
-        return key($last) . ": {$delta}ms";
+        return $last->label() . ": {$delta}ms";
     }
 
     /**
@@ -297,7 +294,7 @@ class NanoTimer
             $count -1;
         }
 
-        return $data[$count - 1]['total'];
+        return $data[$count - 1]->str();
     }
 
     /**
