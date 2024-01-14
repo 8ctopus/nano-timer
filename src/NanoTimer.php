@@ -68,43 +68,6 @@ class NanoTimer
     }
 
     /**
-     * Log peak memory use
-     *
-     * @return self
-     */
-    public function logMemoryPeakUse() : self
-    {
-        $this->logMemoryPeakUse = true;
-        return $this;
-    }
-
-    /**
-     * Log only if total time more than
-     *
-     * @param int $milliseconds
-     *
-     * @return self
-     */
-    public function logSlowerThan(int $milliseconds) : self
-    {
-        $this->logSlowerThan = $milliseconds;
-        return $this;
-    }
-
-    /**
-     * Automatically logs when destructor is called
-     *
-     * @param bool $autoLog
-     *
-     * @return self
-     */
-    public function autoLog(bool $autoLog = true) : self
-    {
-        $this->autoLog = $autoLog;
-        return $this;
-    }
-
-    /**
      * Table report
      *
      * @return string
@@ -172,17 +135,6 @@ class NanoTimer
         }
 
         return rtrim($line, ' - ');
-    }
-
-    /**
-     * Set timer label
-     *
-     * @param string $label
-     */
-    public function setLabel(string $label) : self
-    {
-        $this->label = $label;
-        return $this;
     }
 
     /**
@@ -291,6 +243,54 @@ class NanoTimer
         }
 
         return $data[$count - 1]->str();
+    }
+
+    /**
+     * Log peak memory use
+     *
+     * @return self
+     */
+    public function logMemoryPeakUse() : self
+    {
+        $this->logMemoryPeakUse = true;
+        return $this;
+    }
+
+    /**
+     * Log only if total time more than
+     *
+     * @param int $milliseconds
+     *
+     * @return self
+     */
+    public function logSlowerThan(int $milliseconds) : self
+    {
+        $this->logSlowerThan = $milliseconds;
+        return $this;
+    }
+
+    /**
+     * Automatically logs when destructor is called
+     *
+     * @param bool $autoLog
+     *
+     * @return self
+     */
+    public function autoLog(bool $autoLog = true) : self
+    {
+        $this->autoLog = $autoLog;
+        return $this;
+    }
+
+    /**
+     * Set timer label
+     *
+     * @param string $label
+     */
+    public function setLabel(string $label) : self
+    {
+        $this->label = $label;
+        return $this;
     }
 
     /**
