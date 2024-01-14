@@ -222,8 +222,6 @@ class NanoTimer
                 continue;
             }
 
-            //$current = round(($time - $last) / 1000000, 0, PHP_ROUND_HALF_UP);
-
             $data[] = new TimeMeasure($row->label(), $time - $last);
 
             $last = $time;
@@ -233,10 +231,8 @@ class NanoTimer
             return null;
         }
 
-        //$total = round(($time - $first) / 1000000, 0, PHP_ROUND_HALF_UP);
         $total = $time - $first;
 
-        //$data[] = ['total' => "{$total}ms"];
         $data[] = new TimeMeasure('total', $total);
 
         if ($this->logSlowerThan && round(($total) / 1000000, 0, PHP_ROUND_HALF_UP) < $this->logSlowerThan) {
