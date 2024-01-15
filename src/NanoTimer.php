@@ -162,22 +162,6 @@ class NanoTimer
     }
 
     /**
-     * Log to error
-     *
-     * @return self
-     */
-    public function log() : self
-    {
-        $log = $this->line();
-
-        if (!empty($log)) {
-            $this->errorLog("{$this->label} - {$log}");
-        }
-
-        return $this;
-    }
-
-    /**
      * Get total
      *
      * @return Measure
@@ -254,6 +238,22 @@ class NanoTimer
     public function setLabel(string $label) : self
     {
         $this->label = $label;
+        return $this;
+    }
+
+    /**
+     * Log to error
+     *
+     * @return self
+     */
+    public function log() : self
+    {
+        $log = $this->line();
+
+        if (!empty($log)) {
+            $this->errorLog("{$this->label} - {$log}");
+        }
+
         return $this;
     }
 
