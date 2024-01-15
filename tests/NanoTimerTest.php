@@ -30,9 +30,7 @@ final class NanoTimerTest extends TestCase
 
         $line = $timer->line();
 
-        $output = "total: {$delta}ms - 100ms sleep: {$delta}ms";
-
-        self::assertSame($output, $line);
+        self::assertSame("total: {$delta}ms - 100ms sleep: {$delta}ms", $line);
     }
 
     public function testTable() : void
@@ -178,6 +176,25 @@ final class NanoTimerTest extends TestCase
         $timer = new NanoTimerMock($time);
 
         self::assertEquals($time, $timer->start());
+    }
+
+    public function testReset() : void
+    {
+        $time = hrtime(true);
+
+        $timer = new NanoTimerMock($time);
+
+        $last = $timer
+            ->measure('test1');
+
+        usleep(20);
+
+        $timer
+            ->measure('test2')
+            ->reset();
+
+        $delta = round((hrtime(true) - $time) / 1000000, 0, PHP_ROUND_HALF_UP);
+        self::assertSame("total: {$delta}ms", $timer->line());
     }
 }
 

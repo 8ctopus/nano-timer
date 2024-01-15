@@ -194,6 +194,18 @@ class NanoTimer
     }
 
     /**
+     * Reset all measurements while keeping start time
+     *
+     * @return self
+     */
+    public function reset() : self
+    {
+        $this->measures = [];
+
+        return $this;
+    }
+
+    /**
      * Log peak memory use
      *
      * @return self
