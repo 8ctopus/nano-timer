@@ -131,15 +131,15 @@ class NanoTimer
      */
     public function data() : ?array
     {
-        $data = $this->measures;
-
         $total = hrtime(true) - $this->start;
-
-        $data[] = new TimeMeasure('total', $total);
 
         if ($this->logSlowerThan && $total < $this->logSlowerThan * 1000000) {
             return null;
         }
+
+        $data = $this->measures;
+
+        $data[] = new TimeMeasure('total', $total);
 
         if ($this->logMemoryPeakUse) {
             $data[] = new MemoryMeasure('memory peak use');
