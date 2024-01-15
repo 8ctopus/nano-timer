@@ -183,11 +183,11 @@ class NanoTimer
     /**
      * Get start time
      *
-     * @return int
+     * @return float
      */
-    public function startTime() : int
+    public function startTime() : float
     {
-        return (int) $this->start;
+        return $this->start;
     }
 
     /**
