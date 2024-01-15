@@ -10,6 +10,7 @@ class NanoTimer
     private ?int $logSlowerThan;
     private bool $autoLog;
     private string $label;
+    private ?float $start;
 
     /**
      * @var Measures[]
@@ -29,7 +30,7 @@ class NanoTimer
         $this->label = 'nanotimer';
 
         $this->measures = [];
-        $this->measures[] = new TimeMeasure('start', $hrtime);
+        $this->start = $hrtime ?? hrtime(true);
     }
 
     public function __destruct()
@@ -62,7 +63,7 @@ class NanoTimer
      */
     public function measure(string $label) : self
     {
-        $this->measures[] = new TimeMeasure($label);
+        $this->measures[] = new TimeMeasure($label, hrtime(true) - $this->start);
 
         return $this;
     }
@@ -160,34 +161,13 @@ class NanoTimer
      */
     public function data() : ?array
     {
-        $index = 0;
-        $first = 0;
-        $last = 0;
-        $data = [];
+        $data = $this->measures;
 
-        foreach ($this->measures as $row) {
-            $time = $row->hrtime();
-
-            if ($index++ === 0) {
-                $first = $time;
-                $last = $time;
-                continue;
-            }
-
-            $data[] = new TimeMeasure($row->label(), $time - $last);
-
-            $last = $time;
-        }
-
-        if ($index === 0) {
-            return null;
-        }
-
-        $total = $time - $first;
+        $total = hrtime(true) - $this->start;
 
         $data[] = new TimeMeasure('total', $total);
 
-        if ($this->logSlowerThan && round(($total) / 1000000, 0, PHP_ROUND_HALF_UP) < $this->logSlowerThan) {
+        if ($this->logSlowerThan && $total < $this->logSlowerThan * 1000000) {
             return null;
         }
 
@@ -205,7 +185,7 @@ class NanoTimer
      */
     public function startTime() : int
     {
-        return (int) $this->measures[0]->hrtime();
+        return (int) $this->start;
     }
 
     /**

@@ -9,10 +9,10 @@ class TimeMeasure implements Measure
     private readonly string $label;
     private readonly float $hrtime;
 
-    public function __construct(string $label, ?float $hrtime = null)
+    public function __construct(string $label, float $hrtime)
     {
         $this->label = $label;
-        $this->hrtime = $hrtime ?? hrtime(true);
+        $this->hrtime = $hrtime;
     }
 
     public function label() : string
