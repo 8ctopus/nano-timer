@@ -116,15 +116,7 @@ class NanoTimer
         $line = '';
 
         foreach ($data as $row) {
-            $label = $row->label();
-
-            if ($row instanceof TimeMeasure) {
-                $value = $row->time() . 'ms';
-            } else {
-                $value = $row->memory() . 'MB';
-            }
-
-            $line .= "{$label}: {$value} - ";
+            $line .= $row->pad(1, true) . ' - ';
         }
 
         return rtrim($line, ' - ');
