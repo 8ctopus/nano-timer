@@ -145,7 +145,7 @@ final class NanoTimerTest extends TestCase
 
         $timer = new NanoTimerMock($time);
 
-        self::assertEquals($time, $timer->startTime());
+        self::assertEquals($time, $timer->start());
     }
 
     public function testLastMeasure() : void

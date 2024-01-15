@@ -33,6 +33,9 @@ class NanoTimer
         $this->start = $hrtime ?? hrtime(true);
     }
 
+    /**
+     * Destructor
+     */
     public function __destruct()
     {
         if (!$this->autoLog) {
@@ -179,7 +182,7 @@ class NanoTimer
      *
      * @return float
      */
-    public function startTime() : float
+    public function start() : float
     {
         return $this->start;
     }
