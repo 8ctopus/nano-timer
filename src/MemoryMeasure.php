@@ -9,10 +9,10 @@ class MemoryMeasure extends Measure
     private readonly string $label;
     private readonly float $memory;
 
-    public function __construct(string $label, ?float $memory = null)
+    public function __construct(string $label)
     {
         $this->label = $label;
-        $this->memory = $memory ?? memory_get_peak_usage(true);
+        $this->memory = memory_get_peak_usage(true);
 
     }
 
