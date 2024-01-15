@@ -59,16 +59,6 @@ class NanoTimer
     }
 
     /**
-     * To string
-     *
-     * @return string
-     */
-    public function __toString() : string
-    {
-        return $this->table();
-    }
-
-    /**
      * Table report
      *
      * @return string
@@ -138,6 +128,16 @@ class NanoTimer
         }
 
         return rtrim($line, ' - ');
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString() : string
+    {
+        return $this->table();
     }
 
     /**
