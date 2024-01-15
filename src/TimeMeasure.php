@@ -35,10 +35,13 @@ class TimeMeasure implements Measure
         return (string) $this->time() . 'ms';
     }
 
-    public function pad(int $padding, bool $dot) : string
+    public function colon() : string
     {
-        $label = $this->label() . ($dot ? ':' : '');
+        return $this->label() . ': ' . $this->str();
+    }
 
-        return str_pad($label, $padding, ' ', STR_PAD_RIGHT) .  str_pad($this->str(), $dot ? 0 : 6, ' ', STR_PAD_LEFT);
+    public function pad(int $padding) : string
+    {
+        return str_pad($this->label(), $padding, ' ', STR_PAD_RIGHT) .  str_pad($this->str(), 6, ' ', STR_PAD_LEFT);
     }
 }

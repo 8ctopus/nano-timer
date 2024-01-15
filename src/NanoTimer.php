@@ -84,7 +84,7 @@ class NanoTimer
         $table = '';
 
         foreach ($data as $row) {
-            $table .= $row->pad($max, false) . "\n";
+            $table .= $row->pad($max) . "\n";
         }
 
         return $table;
@@ -116,7 +116,7 @@ class NanoTimer
         $line = '';
 
         foreach ($data as $row) {
-            $line .= $row->pad(1, true) . ' - ';
+            $line .= $row->colon() . ' - ';
         }
 
         return rtrim($line, ' - ');
@@ -193,7 +193,7 @@ class NanoTimer
 
         $last = $this->measures[$count - 1];
 
-        return $last->pad(1, true);
+        return $last->colon();
     }
 
     /**

@@ -31,7 +31,12 @@ class MemoryMeasure implements Measure
         return (string) $this->memory() . 'MB';
     }
 
-    public function pad(int $padding, bool $dot) : string
+    public function colon() : string
+    {
+        return $this->label() . ': ' . $this->str();
+    }
+
+    public function pad(int $padding) : string
     {
         return str_pad($this->label(), $padding, ' ', STR_PAD_RIGHT) .  str_pad($this->str(), 6, ' ', STR_PAD_LEFT);
     }

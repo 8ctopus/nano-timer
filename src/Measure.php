@@ -8,5 +8,7 @@ interface Measure
 {
     public function label() : string;
     public function str() : string;
-    public function pad(int $padding, bool $dot) : string;
+
+    public function colon() : string;
+    public function pad(int $padding) : string;
 }
