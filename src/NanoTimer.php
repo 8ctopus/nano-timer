@@ -13,7 +13,7 @@ class NanoTimer
     private float $start;
 
     /**
-     * @var Measures[]
+     * @var Measure[]
      */
     private array $measures;
 
@@ -187,33 +187,23 @@ class NanoTimer
     /**
      * Get last measurement
      *
-     * @return string
+     * @return Measure
      */
-    public function last() : string
+    public function last() : Measure
     {
         $count = count($this->measures);
 
-        $last = $this->measures[$count - 1];
-
-        return $last->colon();
+        return $this->measures[$count - 1];
     }
 
     /**
      * Get total
      *
-     * @return string
+     * @return Measure
      */
-    public function total() : string
+    public function total() : Measure
     {
-        $data = $this->data();
-
-        $count = count($data);
-
-        if ($this->logMemoryPeakUse) {
-            $count -1;
-        }
-
-        return $data[$count - 1]->str();
+        return new TimeMeasure('total', hrtime(true) - $this->start);
     }
 
     /**

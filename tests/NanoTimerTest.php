@@ -160,7 +160,7 @@ final class NanoTimerTest extends TestCase
             ->measure('test3')
             ->last();
 
-        self::assertMatchesRegularExpression('~test3: \d{1,2}ms~', $last);
+        self::assertMatchesRegularExpression('~test3: \d{1,2}ms~', $last->colon());
     }
 
     public function testTotal() : void
@@ -177,7 +177,7 @@ final class NanoTimerTest extends TestCase
 
         $output = "{$delta}ms";
 
-        self::assertSame($output, $timer->total());
+        self::assertSame($output, $timer->total()->str());
     }
 }
 
