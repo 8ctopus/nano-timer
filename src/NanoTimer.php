@@ -84,7 +84,7 @@ class NanoTimer
         $table = '';
 
         foreach ($data as $row) {
-            $table .= $row->pad($max);
+            $table .= $row->pad($max, false) . "\n";
         }
 
         return $table;
@@ -200,13 +200,8 @@ class NanoTimer
         $count = count($this->measures);
 
         $last = $this->measures[$count - 1];
-        $before = $this->measures[$count - 2];
 
-        $delta = $last->hrtime() - $before->hrtime();
-
-        $delta = round($delta / 1000000, 0, PHP_ROUND_HALF_UP);
-
-        return $last->label() . ": {$delta}ms";
+        return $last->pad(1, true);
     }
 
     /**
