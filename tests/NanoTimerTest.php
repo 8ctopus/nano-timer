@@ -46,9 +46,9 @@ final class NanoTimerTest extends TestCase
         $delta = round((microtime(true) - $microtime) * 1000, 0, PHP_ROUND_HALF_UP);
 
         $output = <<<OUTPUT
-        constructor    0ms
-        100ms sleep  {$delta}ms
-        total        {$delta}ms
+        constructor   0ms
+        100ms sleep {$delta}ms
+        total       {$delta}ms
 
         OUTPUT;
 
@@ -70,8 +70,8 @@ final class NanoTimerTest extends TestCase
         }
 
         $output = <<<OUTPUT
-        total              0ms
-        memory peak use   {$used}MB
+        total            0ms
+        memory peak use {$used}MB
 
         OUTPUT;
 

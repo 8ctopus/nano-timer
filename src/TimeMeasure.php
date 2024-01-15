@@ -40,8 +40,8 @@ class TimeMeasure implements Measure
         return $this->label() . ': ' . $this->str();
     }
 
-    public function pad(int $padding) : string
+    public function pad(int $labelPad, int $valuePad) : string
     {
-        return str_pad($this->label(), $padding, ' ', STR_PAD_RIGHT) .  str_pad($this->str(), 6, ' ', STR_PAD_LEFT);
+        return str_pad($this->label(), $labelPad, ' ', STR_PAD_RIGHT) .  str_pad($this->str(), $valuePad, ' ', STR_PAD_LEFT);
     }
 }

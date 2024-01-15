@@ -71,20 +71,22 @@ class NanoTimer
             return '';
         }
 
-        $max = 0;
+        $maxLabel = 0;
+        $maxValue = 0;
 
-        // get data max character length
+        // get label max length
         foreach ($data as $row) {
-            $max = max($max, strlen($row->label()));
+            $maxLabel = max($maxLabel, strlen($row->label()));
+            $maxValue = max($maxValue, strlen($row->str()));
         }
 
-        $max += 1;
+        $maxLabel += 1;
 
         // create table
         $table = '';
 
         foreach ($data as $row) {
-            $table .= $row->pad($max) . "\n";
+            $table .= $row->pad($maxLabel, $maxValue) . "\n";
         }
 
         return $table;

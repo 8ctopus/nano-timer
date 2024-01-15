@@ -10,5 +10,5 @@ interface Measure
     public function str() : string;
 
     public function colon() : string;
-    public function pad(int $padding) : string;
+    public function pad(int $labelPad, int $valuePad) : string;
 }
