@@ -130,7 +130,7 @@ class NanoTimer
     /**
      * Get report data
      *
-     * @return ?Measures[]
+     * @return ?Measure[]
      */
     public function data() : ?array
     {

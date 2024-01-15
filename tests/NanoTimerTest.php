@@ -28,9 +28,11 @@ final class NanoTimerTest extends TestCase
 
         $delta = round((microtime(true) - $microtime) * 1000, 0, PHP_ROUND_HALF_UP);
 
+        $line = $timer->line();
+
         $output = "total: {$delta}ms - 100ms sleep: {$delta}ms";
 
-        self::assertSame($output, $timer->line());
+        self::assertSame($output, $line);
     }
 
     public function testTable() : void
@@ -45,9 +47,9 @@ final class NanoTimerTest extends TestCase
 
         $timer->measure('100ms sleep');
 
-        $table = $timer->table();
-
         $delta = round((microtime(true) - $microtime) * 1000, 0, PHP_ROUND_HALF_UP);
+
+        $table = $timer->table();
 
         $output = <<<OUTPUT
         constructor   0ms
