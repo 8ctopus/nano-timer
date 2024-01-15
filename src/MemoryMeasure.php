@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\NanoTimer;
 
-class MemoryMeasure implements Measure
+class MemoryMeasure extends Measure
 {
     private readonly string $label;
     private readonly float $memory;
@@ -29,15 +29,5 @@ class MemoryMeasure implements Measure
     public function value() : string
     {
         return (string) $this->memory() . 'MB';
-    }
-
-    public function colon() : string
-    {
-        return $this->label() . ': ' . $this->value();
-    }
-
-    public function pad(int $labelPad, int $valuePad) : string
-    {
-        return str_pad($this->label(), $labelPad, ' ', STR_PAD_RIGHT) .  str_pad($this->value(), $valuePad, ' ', STR_PAD_LEFT);
     }
 }
