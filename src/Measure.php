@@ -8,4 +8,5 @@ interface Measure
 {
     public function label() : string;
     public function str() : string;
+    public function pad(int $padding) : string;
 }

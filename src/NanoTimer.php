@@ -45,16 +45,6 @@ class NanoTimer
     }
 
     /**
-     * To string
-     *
-     * @return string
-     */
-    public function __toString() : string
-    {
-        return $this->table();
-    }
-
-    /**
      * Make measurement
      *
      * @param string $label
@@ -66,6 +56,16 @@ class NanoTimer
         $this->measures[] = new TimeMeasure($label, hrtime(true) - $this->start);
 
         return $this;
+    }
+
+    /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString() : string
+    {
+        return $this->table();
     }
 
     /**
@@ -88,11 +88,13 @@ class NanoTimer
             $max = max($max, strlen($row->label()));
         }
 
+        $max += 1;
+
         // create table
         $table = '';
 
         foreach ($data as $row) {
-            $table .= str_pad($row->label(), $max + 1, ' ', STR_PAD_RIGHT) . str_pad($row->str(), 6, ' ', STR_PAD_LEFT) . "\n";
+            $table .= $row->pad($max);
         }
 
         return $table;
