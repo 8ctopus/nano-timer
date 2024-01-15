@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace Oct8pus\NanoTimer;
 
-abstract class Measure
+abstract class AbstractMeasure
 {
-    public abstract function label() : string;
+    protected string $label;
+
+    public function label() : string
+    {
+        return $this->label;
+    }
+
     public abstract function value() : string;
 
     public function colon() : string

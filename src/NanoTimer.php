@@ -13,7 +13,7 @@ class NanoTimer
     private float $start;
 
     /**
-     * @var Measure[]
+     * @var TimeMeasure[]
      */
     private array $measures;
 
@@ -130,7 +130,7 @@ class NanoTimer
     /**
      * Get report data
      *
-     * @return ?Measure[]
+     * @return ?AbstractMeasure[]
      */
     public function data() : ?array
     {
@@ -164,9 +164,9 @@ class NanoTimer
     /**
      * Get total
      *
-     * @return Measure
+     * @return TimeMeasure
      */
-    public function total() : Measure
+    public function total() : TimeMeasure
     {
         return new TimeMeasure('total', hrtime(true) - $this->start);
     }
@@ -174,9 +174,9 @@ class NanoTimer
     /**
      * Get last measurement
      *
-     * @return Measure
+     * @return TimeMeasure
      */
-    public function last() : Measure
+    public function last() : AbstractMeasure
     {
         $count = count($this->measures);
 

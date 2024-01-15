@@ -139,13 +139,21 @@ final class NanoTimerTest extends TestCase
         self::expectOutputString("nanotimer - total: 0ms - test: 0ms - destruct: 0ms - memory peak use: {$used}MB");
     }
 
-    public function testStartTime() : void
+    public function testTotal() : void
     {
-        $time = hrtime(true);
+        $timer = new NanoTimer(hrtime(true));
 
-        $timer = new NanoTimerMock($time);
+        $microtime = microtime(true);
 
-        self::assertEquals($time, $timer->start());
+        time_sleep_until($microtime + 0.1);
+
+        $timer->measure('100ms sleep');
+
+        $delta = round((microtime(true) - $microtime) * 1000, 0, PHP_ROUND_HALF_UP);
+
+        $output = "{$delta}ms";
+
+        self::assertSame($output, $timer->total()->value());
     }
 
     public function testLastMeasure() : void
@@ -163,21 +171,13 @@ final class NanoTimerTest extends TestCase
         self::assertMatchesRegularExpression('~test3: \d{1,2}ms~', $last->colon());
     }
 
-    public function testTotal() : void
+    public function testStart() : void
     {
-        $timer = new NanoTimer(hrtime(true));
+        $time = hrtime(true);
 
-        $microtime = microtime(true);
+        $timer = new NanoTimerMock($time);
 
-        time_sleep_until($microtime + 0.1);
-
-        $timer->measure('100ms sleep');
-
-        $delta = round((microtime(true) - $microtime) * 1000, 0, PHP_ROUND_HALF_UP);
-
-        $output = "{$delta}ms";
-
-        self::assertSame($output, $timer->total()->value());
+        self::assertEquals($time, $timer->start());
     }
 }
 
