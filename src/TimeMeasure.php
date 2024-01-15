@@ -30,18 +30,18 @@ class TimeMeasure implements Measure
         return (int) round($this->hrtime / 1000000, 0, PHP_ROUND_HALF_UP);
     }
 
-    public function str() : string
+    public function value() : string
     {
         return (string) $this->time() . 'ms';
     }
 
     public function colon() : string
     {
-        return $this->label() . ': ' . $this->str();
+        return $this->label() . ': ' . $this->value();
     }
 
     public function pad(int $labelPad, int $valuePad) : string
     {
-        return str_pad($this->label(), $labelPad, ' ', STR_PAD_RIGHT) .  str_pad($this->str(), $valuePad, ' ', STR_PAD_LEFT);
+        return str_pad($this->label(), $labelPad, ' ', STR_PAD_RIGHT) .  str_pad($this->value(), $valuePad, ' ', STR_PAD_LEFT);
     }
 }

@@ -177,7 +177,7 @@ final class NanoTimerTest extends TestCase
 
         $output = "{$delta}ms";
 
-        self::assertSame($output, $timer->total()->str());
+        self::assertSame($output, $timer->total()->value());
     }
 }
 

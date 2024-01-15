@@ -7,7 +7,7 @@ namespace Oct8pus\NanoTimer;
 interface Measure
 {
     public function label() : string;
-    public function str() : string;
+    public function value() : string;
 
     public function colon() : string;
     public function pad(int $labelPad, int $valuePad) : string;

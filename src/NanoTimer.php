@@ -80,7 +80,7 @@ class NanoTimer
         // get label max length
         foreach ($data as $row) {
             $maxLabel = max($maxLabel, strlen($row->label()));
-            $maxValue = max($maxValue, strlen($row->str()));
+            $maxValue = max($maxValue, strlen($row->value()));
         }
 
         $maxLabel += 1;
