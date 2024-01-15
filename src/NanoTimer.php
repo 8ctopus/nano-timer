@@ -178,13 +178,13 @@ class NanoTimer
     }
 
     /**
-     * Get start time
+     * Get total
      *
-     * @return float
+     * @return Measure
      */
-    public function start() : float
+    public function total() : Measure
     {
-        return $this->start;
+        return new TimeMeasure('total', hrtime(true) - $this->start);
     }
 
     /**
@@ -200,13 +200,13 @@ class NanoTimer
     }
 
     /**
-     * Get total
+     * Get start time
      *
-     * @return Measure
+     * @return float
      */
-    public function total() : Measure
+    public function start() : float
     {
-        return new TimeMeasure('total', hrtime(true) - $this->start);
+        return $this->start;
     }
 
     /**
