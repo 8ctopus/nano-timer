@@ -10,7 +10,7 @@ class NanoTimer
     private ?int $logSlowerThan;
     private bool $autoLog;
     private string $label;
-    private ?float $start;
+    private float $start;
 
     /**
      * @var Measures[]
@@ -45,7 +45,7 @@ class NanoTimer
     }
 
     /**
-     * Make measurement
+     * Take measurement
      *
      * @param string $label
      *
