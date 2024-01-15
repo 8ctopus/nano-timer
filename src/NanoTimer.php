@@ -131,6 +131,30 @@ class NanoTimer
     }
 
     /**
+     * Get report data
+     *
+     * @return ?Measures[]
+     */
+    public function data() : ?array
+    {
+        $data = $this->measures;
+
+        $total = hrtime(true) - $this->start;
+
+        $data[] = new TimeMeasure('total', $total);
+
+        if ($this->logSlowerThan && $total < $this->logSlowerThan * 1000000) {
+            return null;
+        }
+
+        if ($this->logMemoryPeakUse) {
+            $data[] = new MemoryMeasure('memory peak use');
+        }
+
+        return $data;
+    }
+
+    /**
      * To string
      *
      * @return string
@@ -154,30 +178,6 @@ class NanoTimer
         }
 
         return $this;
-    }
-
-    /**
-     * Get report data
-     *
-     * @return ?Measures[]
-     */
-    public function data() : ?array
-    {
-        $data = $this->measures;
-
-        $total = hrtime(true) - $this->start;
-
-        $data[] = new TimeMeasure('total', $total);
-
-        if ($this->logSlowerThan && $total < $this->logSlowerThan * 1000000) {
-            return null;
-        }
-
-        if ($this->logMemoryPeakUse) {
-            $data[] = new MemoryMeasure('memory peak use');
-        }
-
-        return $data;
     }
 
     /**
