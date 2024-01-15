@@ -25,9 +25,9 @@ class TimeMeasure implements Measure
         return $this->hrtime;
     }
 
-    public function time() : int
+    public function time() : float
     {
-        return (int) round($this->hrtime / 1000000, 0, PHP_ROUND_HALF_UP);
+        return round($this->hrtime / 1000000, 0, PHP_ROUND_HALF_UP);
     }
 
     public function value() : string
