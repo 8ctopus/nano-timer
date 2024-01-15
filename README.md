@@ -48,9 +48,9 @@ echo $timer->table();
 ```
 
 ```txt
-usleep 200ms     211ms
-range 0-50000     12ms
-total            223ms
+usleep 200ms  211ms
+range 0-50000  12ms
+total         223ms
 ```
 
 ## more advanced
