@@ -11,6 +11,7 @@ class NanoTimer
     private bool $autoLog;
     private string $label;
     private float $start;
+    private float $last;
 
     /**
      * @var TimeMeasure[]
@@ -31,6 +32,7 @@ class NanoTimer
 
         $this->measures = [];
         $this->start = $hrtime ?? hrtime(true);
+        $this->last = $this->start;
     }
 
     /**
@@ -56,7 +58,9 @@ class NanoTimer
      */
     public function measure(string $label) : self
     {
-        $this->measures[] = new TimeMeasure($label, hrtime(true) - $this->start);
+        $time = hrtime(true);
+        $this->measures[] = new TimeMeasure($label, $time - $this->last);
+        $this->last = $time;
 
         return $this;
     }
