@@ -33,3 +33,7 @@ $timer->measure('pow range 0-50000');
 //echo $timer->last()->value() . PHP_EOL;
 
 echo $timer->table();
+
+echo PHP_EOL;
+
+echo $timer->line();
