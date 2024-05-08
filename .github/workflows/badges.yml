@@ -32,9 +32,9 @@ jobs:
         timeout-minutes: 3
         run: vendor/bin/phpunit --coverage-clover clover.xml
 
-      - name: Get lines of code (more sophisticated)
+      - name: Get lines of code (more sophisticated, uses scc)
         id: scc
-        uses: iryanbell/scc-docker-action@v1.0.2
+        uses: hdmsantander/scc-docker-action@3.0
         with:
           args: ${{ env.workspace }} -i php --exclude-dir vendor --format json src
 
