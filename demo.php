@@ -12,6 +12,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 $timer = new NanoTimer($hrtime);
 
 $timer
+    ->logMemoryPeakUse(true)
+    ->logSlowerThan(0)
     ->logMemoryPeakUse(true);
 
 $timer->measure('autoload and constructor');
