@@ -218,11 +218,13 @@ class NanoTimer
     /**
      * Log peak memory use
      *
+     * @param bool $value
+     *
      * @return self
      */
-    public function logMemoryPeakUse() : self
+    public function logMemoryPeakUse(bool $value = true) : self
     {
-        $this->logMemoryPeakUse = true;
+        $this->logMemoryPeakUse = $value;
         return $this;
     }
 
