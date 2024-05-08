@@ -42,7 +42,7 @@ jobs:
         uses: emibcn/badge-action@v2.0.2
         with:
           label: Lines of Code
-          status: ${{ fromJson(steps.scc.outputs.scc)[0].Code }}
+          status: ${{ fromJson(steps.scc.outputs.scc.json)[0].Code }}
           color: 'blue'
           path: .github/lines.svg
 
