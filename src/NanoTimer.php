@@ -50,6 +50,16 @@ class NanoTimer
     }
 
     /**
+     * To string
+     *
+     * @return string
+     */
+    public function __toString() : string
+    {
+        return $this->table();
+    }
+
+    /**
      * Take measurement
      *
      * @param string $label
@@ -87,7 +97,7 @@ class NanoTimer
             $maxValue = max($maxValue, strlen($row->value()));
         }
 
-        $maxLabel += 1;
+        ++$maxLabel;
 
         // create table
         $table = '';
@@ -153,16 +163,6 @@ class NanoTimer
         }
 
         return $data;
-    }
-
-    /**
-     * To string
-     *
-     * @return string
-     */
-    public function __toString() : string
-    {
-        return $this->table();
     }
 
     /**

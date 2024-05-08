@@ -10,8 +10,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @covers \Oct8pus\NanoTimer\MemoryMeasure
  * @covers \Oct8pus\NanoTimer\AbstractMeasure
+ * @covers \Oct8pus\NanoTimer\MemoryMeasure
  */
 final class MemoryMeasureTest extends TestCase
 {

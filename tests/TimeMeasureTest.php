@@ -10,8 +10,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * @internal
  *
- * @covers \Oct8pus\NanoTimer\TimeMeasure
  * @covers \Oct8pus\NanoTimer\AbstractMeasure
+ * @covers \Oct8pus\NanoTimer\TimeMeasure
  */
 final class TimeMeasureTest extends TestCase
 {
