@@ -198,13 +198,19 @@ class NanoTimer
     }
 
     /**
-     * Reset all measurements while keeping start time
+     * Reset all measurements
+     *
+     * @param bool $keepStart
      *
      * @return self
      */
-    public function reset() : self
+    public function reset(bool $keepStart = true) : self
     {
         $this->measures = [];
+
+        if ($keepStart === false) {
+            $this->start = hrtime(true);
+        }
 
         return $this;
     }
