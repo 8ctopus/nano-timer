@@ -25,14 +25,14 @@ class NanoTimer
      */
     public function __construct(?int $hrtime = null)
     {
+        $this->start = $hrtime ?? hrtime(true);
+
+        $this->last = $this->start;
+        $this->measures = [];
         $this->logMemoryPeakUse = false;
         $this->logSlowerThan = null;
         $this->autoLog = false;
         $this->label = 'nanotimer';
-
-        $this->measures = [];
-        $this->start = $hrtime ?? hrtime(true);
-        $this->last = $this->start;
     }
 
     /**
@@ -69,6 +69,7 @@ class NanoTimer
     public function measure(string $label) : self
     {
         $time = hrtime(true);
+
         $this->measures[] = new TimeMeasure($label, $time - $this->last);
         $this->last = $time;
 
@@ -150,7 +151,7 @@ class NanoTimer
     {
         $total = hrtime(true) - $this->start;
 
-        if ($this->logSlowerThan && $total < $this->logSlowerThan * 1000000) {
+        if (isset($this->logSlowerThan) && $total < $this->logSlowerThan * 1000000) {
             return null;
         }
 

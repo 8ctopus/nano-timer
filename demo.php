@@ -9,10 +9,7 @@ $hrtime = hrtime(true);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$timer = new NanoTimer($hrtime);
-
-$timer
-    ->logMemoryPeakUse(true)
+$timer = (new NanoTimer($hrtime))
     ->logSlowerThan(0)
     ->logMemoryPeakUse(true);
 
@@ -34,8 +31,6 @@ $timer->measure('pow range 0-50000');
 
 //echo $timer->last()->value() . PHP_EOL;
 
-echo $timer->table();
-
-echo PHP_EOL;
+echo $timer->table() . PHP_EOL;
 
 echo $timer->line();
