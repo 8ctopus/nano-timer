@@ -93,8 +93,6 @@ class NanoVariability
      */
     public function data() : ?array
     {
-        $total = hrtime(true) - $this->start;
-
         $measures = $this->measures;
 
         $min = PHP_INT_MAX;
@@ -116,22 +114,12 @@ class NanoVariability
             $median = ($values[$count / 2 - 1] + $values[$count / 2]) / 2;
         }
 
-        $measures[] = new TimeMeasure('average', $total / $count);
+        $measures[] = new TimeMeasure('average', array_sum($values) / $count);
         $measures[] = new TimeMeasure('median', $median);
         $measures[] = new TimeMeasure('minimum', $min);
         $measures[] = new TimeMeasure('maximum', $max);
 
         return $measures;
-    }
-
-    /**
-     * Get total
-     *
-     * @return TimeMeasure
-     */
-    public function total() : TimeMeasure
-    {
-        return new TimeMeasure('total', hrtime(true) - $this->start);
     }
 
     /**
@@ -144,33 +132,5 @@ class NanoVariability
         $count = count($this->measures);
 
         return $this->measures[$count - 1];
-    }
-
-    /**
-     * Get start time
-     *
-     * @return float
-     */
-    public function start() : float
-    {
-        return $this->start;
-    }
-
-    /**
-     * Reset all measurements
-     *
-     * @param bool $keepStart
-     *
-     * @return self
-     */
-    public function reset(bool $keepStart = true) : self
-    {
-        $this->measures = [];
-
-        if ($keepStart === false) {
-            $this->start = hrtime(true);
-        }
-
-        return $this;
     }
 }
