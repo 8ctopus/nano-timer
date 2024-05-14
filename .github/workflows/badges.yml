@@ -7,12 +7,12 @@ on:
     paths:
       - 'src/**'
 
+env:
+  COMPOSER_ROOT_VERSION: 1.99
+
 jobs:
   tests:
     runs-on: ubuntu-latest
-
-    env:
-      COMPOSER_ROOT_VERSION: 1.99
 
     steps:
       - name: Checkout project
@@ -40,16 +40,19 @@ jobs:
 
       - name: Get lines of code (more sophisticated, uses scc)
         id: scc
-        run: |
-          output=$(scc ${{ github.workspace }}/src -i php --exclude-dir vendor --format json)
-          lines=$(echo "$output" | jq '.[0].Code')
-          echo "::set-output name=loc::$lines"
+        uses: hdmsantander/scc-docker-action@3.0
+        with:
+          args: ${{ env.workspace }} -i php --exclude-dir vendor --format json -o scc.json src
+
+      - name: Parse scc output
+        id: parse_scc
+        run: echo "::set-output name=loc::$(jq '.[0].Code' scc.json)"
 
       - name: Make lines of code badge
         uses: emibcn/badge-action@v2.0.2
         with:
           label: Lines of Code
-          status: ${{ steps.scc.outputs.loc }}
+          status: ${{ steps.parse_scc.outputs.loc }}
           color: 'blue'
           path: .github/lines.svg
 
