@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
+use Oct8pus\NanoTimer\NanoVariability;
 use Oct8pus\NanoTimer\NanoTimer;
 
 // to check autoload and nano timer constructor time
 $hrtime = hrtime(true);
 
 require_once __DIR__ . '/vendor/autoload.php';
+
+echo 'measure performance' . PHP_EOL;
 
 $timer = (new NanoTimer($hrtime))
     ->logSlowerThan(0)
@@ -29,8 +32,16 @@ foreach (range(0, 50000) as $i) {
 
 $timer->measure('pow range 0-50000');
 
-//echo $timer->last()->value() . PHP_EOL;
-
 echo $timer->table() . PHP_EOL;
+echo $timer->line() . PHP_EOL;
 
-echo $timer->line();
+echo PHP_EOL . 'measure variability' . PHP_EOL;
+
+$variability = new NanoVariability();
+
+for ($i = 1; $i < 6; ++$i) {
+    usleep(1000);
+    $variability->measure("lap {$i}");
+}
+
+echo $variability->table() . PHP_EOL;

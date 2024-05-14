@@ -16,7 +16,8 @@ The main reason for this timer is to analyze slow requests that occur from time 
 
 ## features
 
-- measure time between events
+- measure timing between various events
+- measure variability for the same code loop
 - log only requests slower than a given threshold
 - automatically log when the destructor is called
 - measure peak memory use
@@ -101,7 +102,7 @@ memory peak use             4MB
 
 ## only log measurements slower than
 
-It's sometimes useful to only log measurements slower than a given threshold.
+It's sometimes useful to only log measurements slower than a given threshold. In this example, the request will automatically be logged to the error log when the destructor is called if the total time spent is more than 100 milliseconds.
 
 ```php
 $timer = new NanoTimer();
@@ -112,11 +113,34 @@ $timer
 
 ...
 ```
-
-In this example, the request will automatically be logged to the error log when the destructor is called if the total time spent is more than 100 milliseconds.
-
 ```txt
 nanotimer - total: 614ms - destruct: 614ms
+```
+
+## measure variability
+
+Sometimes you need to understand the variability of the same code loop. In this example, the code loop is run 5 times and the variability is displayed.
+```php
+$intervals = new NanoIntervals();
+
+for ($i = 1; $i < 6; ++$i) {
+    usleep(1000);
+    $intervals->measure("lap {$i}");
+}
+
+echo $intervals->table();
+```
+
+```txt
+lap 1    7ms
+lap 2   16ms
+lap 3   16ms
+lap 4   16ms
+lap 5   16ms
+average 14ms
+median  16ms
+minimum  7ms
+maximum 16ms
 ```
 
 ## run tests
