@@ -22,6 +22,9 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
             "Oct8pus\\NanoTimer\\": "src"
