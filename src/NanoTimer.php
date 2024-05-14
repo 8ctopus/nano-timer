@@ -295,4 +295,3 @@ class NanoTimer
         // @codeCoverageIgnoreEnd
     }
 }
-
