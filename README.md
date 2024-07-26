@@ -26,7 +26,7 @@ The main reason for this timer is to analyze slow requests that occur from time 
 
 - `composer require 8ctopus/nano-timer`
 
-## simple example
+## simple timing
 
 ```php
 use Oct8pus\NanoTimer\NanoTimer;
@@ -54,7 +54,7 @@ range 0-50000  12ms
 total         223ms
 ```
 
-## more advanced
+## more advanced timing
 
 - log autoload and constructor time
 - log peak memory use
@@ -117,18 +117,19 @@ $timer
 nanotimer - total: 614ms - destruct: 614ms
 ```
 
-## measure variability
+## measure speed variability
 
-Sometimes you need to understand the variability of the same code loop. In this example, the code loop is run 5 times and the variability is displayed.
+Sometimes you need to understand the speed variability of the same code loop.
+
 ```php
-$intervals = new NanoIntervals();
+$variability = new NanoVariability();
 
 for ($i = 1; $i < 6; ++$i) {
     usleep(1000);
-    $intervals->measure("lap {$i}");
+    $variability->measure("lap {$i}");
 }
 
-echo $intervals->table();
+echo $variability->table(true);
 ```
 
 ```txt
