@@ -40,7 +40,7 @@ echo PHP_EOL . 'measure variability' . PHP_EOL;
 $variability = new NanoVariability();
 
 for ($i = 1; $i < 6; ++$i) {
-    usleep(1000);
+    usleep(500 + rand(0, 100));
     $variability->measure("lap {$i}");
 }
 

@@ -89,9 +89,11 @@ class NanoVariability
     /**
      * Get report data
      *
+     * @param bool $includeData
+     *
      * @return ?AbstractMeasure[]
      */
-    public function data() : ?array
+    public function data(bool $includeData = true) : ?array
     {
         $measures = $this->measures;
 
@@ -112,6 +114,10 @@ class NanoVariability
             $median = $values[ceil($count / 2) - 1];
         } else {
             $median = ($values[$count / 2 - 1] + $values[$count / 2]) / 2;
+        }
+
+        if (!$includeData) {
+            $measures[] = [];
         }
 
         $measures[] = new TimeMeasure('average', array_sum($values) / $count);
