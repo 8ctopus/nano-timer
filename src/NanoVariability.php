@@ -55,11 +55,13 @@ class NanoVariability
     /**
      * Table report
      *
+     * @param bool $includeData
+     *
      * @return string
      */
-    public function table() : string
+    public function table(bool $includeData = true) : string
     {
-        $data = $this->data();
+        $data = $this->data($includeData);
 
         if ($data === null) {
             return '';
@@ -117,7 +119,7 @@ class NanoVariability
         }
 
         if (!$includeData) {
-            $measures[] = [];
+            $measures = [];
         }
 
         $measures[] = new TimeMeasure('average', array_sum($values) / $count);

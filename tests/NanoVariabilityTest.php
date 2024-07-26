@@ -55,5 +55,15 @@ final class NanoVariabilityTest extends TestCase
 
         self::assertSame($output, $variability->table());
         self::assertSame($output, (string) $variability);
+
+        $output = <<<OUTPUT
+        average {$average}ms
+        median  {$median}ms
+        minimum {$values[0]}ms
+        maximum {$values[2]}ms
+
+        OUTPUT;
+
+        self::assertSame($output, $variability->table(false));
     }
 }
