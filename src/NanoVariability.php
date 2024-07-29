@@ -6,7 +6,7 @@ namespace Oct8pus\NanoTimer;
 
 class NanoVariability
 {
-    private float $start;
+    private readonly float $start;
     private float $last;
 
     /**
