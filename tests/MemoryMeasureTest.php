@@ -23,7 +23,7 @@ final class MemoryMeasureTest extends TestCase
         $measure = new MemoryMeasure($label);
 
         self::assertSame($label, $measure->label());
-        self::assertEquals($memory, $measure->memory());
+        self::assertSame($memory, $measure->memory());
 
         $value = (string) round($memory / (1024 * 1024), 1, PHP_ROUND_HALF_UP) . 'MB';
 
