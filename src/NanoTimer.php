@@ -10,8 +10,8 @@ class NanoTimer extends AbstractMeasures
     private ?int $logSlowerThan;
     private bool $autoLog;
     private string $label;
-    private float $start;
-    private float $last;
+    private int $start;
+    private int $last;
 
     /**
      * @var TimeMeasure[]
@@ -185,9 +185,9 @@ class NanoTimer extends AbstractMeasures
     /**
      * Get start time
      *
-     * @return float
+     * @return int
      */
-    public function start() : float
+    public function start() : int
     {
         return $this->start;
     }

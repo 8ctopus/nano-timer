@@ -6,7 +6,7 @@ namespace Oct8pus\NanoTimer;
 
 class MemoryMeasure extends AbstractMeasure
 {
-    private readonly float $memory;
+    private readonly int $memory;
 
     public function __construct(string $label)
     {
@@ -14,7 +14,7 @@ class MemoryMeasure extends AbstractMeasure
         $this->memory = memory_get_peak_usage(true);
     }
 
-    public function memory() : float
+    public function memory() : int
     {
         return $this->memory;
     }

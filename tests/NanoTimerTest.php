@@ -148,7 +148,7 @@ final class NanoTimerTest extends TestCase
 
         $output = "{$delta}ms";
 
-        self::assertSame($output, $timer->total()->value());
+        self::assertSame($output, $timer->total()->valueStr());
     }
 
     public function testLastMeasure() : void
@@ -181,8 +181,7 @@ final class NanoTimerTest extends TestCase
 
         $timer = new NanoTimerMock($time);
 
-        $last = $timer
-            ->measure('test1');
+        $timer->measure('test1');
 
         usleep(20);
 

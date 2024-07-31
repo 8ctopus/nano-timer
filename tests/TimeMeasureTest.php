@@ -19,17 +19,17 @@ final class TimeMeasureTest extends TestCase
     {
         $label = 'test';
         $hrtime = 11000000;
-        $ms = round($hrtime / 1000000, 0, PHP_ROUND_HALF_UP);
+        $ms = (int) round($hrtime / 1000000, 0, PHP_ROUND_HALF_UP);
 
         $measure = new TimeMeasure($label, $hrtime);
 
         self::assertSame($label, $measure->label());
         self::assertSame($hrtime, $measure->hrtime());
-        self::assertSame($ms, $measure->ms());
+        self::assertSame($ms, $measure->value());
 
         $value = "{$ms}ms";
 
-        self::assertSame($value, $measure->value());
+        self::assertSame($value, $measure->valueStr());
         self::assertSame("{$label}: {$value}", $measure->colon());
         self::assertSame("{$label}    {$value}", $measure->pad(strlen($label) + 2, strlen($value) + 2));
     }

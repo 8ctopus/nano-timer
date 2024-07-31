@@ -6,15 +6,15 @@ namespace Oct8pus\NanoTimer;
 
 class TimeMeasure extends AbstractMeasure
 {
-    private readonly float $hrtime;
+    private readonly int $hrtime;
 
-    public function __construct(string $label, float $hrtime)
+    public function __construct(string $label, int $hrtime)
     {
         $this->label = $label;
         $this->hrtime = $hrtime;
     }
 
-    public function hrtime() : float
+    public function hrtime() : int
     {
         return $this->hrtime;
     }

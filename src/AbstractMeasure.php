@@ -19,7 +19,7 @@ abstract class AbstractMeasure
 
     public function colon() : string
     {
-        return $this->label() . ': ' . $this->value();
+        return $this->label() . ': ' . $this->valueStr();
     }
 
     public function pad(int $labelPad, int $valuePad) : string

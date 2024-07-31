@@ -6,8 +6,8 @@ namespace Oct8pus\NanoTimer;
 
 class NanoVariability extends AbstractMeasures
 {
-    private readonly float $start;
-    private float $last;
+    private readonly int $start;
+    private int $last;
 
     /**
      * @var TimeMeasure[]
@@ -112,10 +112,10 @@ class NanoVariability extends AbstractMeasures
             $measures = [];
         }
 
-        $measures[] = new TimeMeasure('average', array_sum($values) / $count);
-        $measures[] = new TimeMeasure('median', $median);
-        $measures[] = new TimeMeasure('minimum', $min);
-        $measures[] = new TimeMeasure('maximum', $max);
+        $measures[] = new TimeMeasure('average', (int) array_sum($values) / $count);
+        $measures[] = new TimeMeasure('median', (int) $median);
+        $measures[] = new TimeMeasure('minimum', (int) $min);
+        $measures[] = new TimeMeasure('maximum', (int) $max);
 
         return $measures;
     }

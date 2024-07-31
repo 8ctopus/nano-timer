@@ -21,17 +21,17 @@ final class NanoVariabilityTest extends TestCase
         usleep(20000);
 
         $variability->measure('lap 1');
-        $lap1 = $variability->last()->ms();
+        $lap1 = $variability->last()->value();
 
         usleep((int) (20000 * 0.95));
 
         $variability->measure('lap 2');
-        $lap2 = $variability->last()->ms();
+        $lap2 = $variability->last()->value();
 
         usleep((int) (20000 * 1.10));
 
         $variability->measure('lap 2');
-        $lap3 = $variability->last()->ms();
+        $lap3 = $variability->last()->value();
 
         $average = round(($lap1 + $lap2 + $lap3) / 3, 0, PHP_ROUND_HALF_UP);
 
