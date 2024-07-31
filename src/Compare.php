@@ -6,10 +6,10 @@ namespace Oct8pus\NanoTimer;
 
 class Compare
 {
-    private readonly NanoVariability $v1;
-    private readonly NanoVariability $v2;
+    private readonly AbstractMeasures $v1;
+    private readonly AbstractMeasures $v2;
 
-    public function __construct(NanoVariability $v1, NanoVariability $v2)
+    public function __construct(AbstractMeasures $v1, AbstractMeasures $v2)
     {
         $this->v1 = $v1;
         $this->v2 = $v2;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\NanoTimer;
 
-class NanoTimer
+class NanoTimer extends AbstractMeasures
 {
     private bool $logMemoryPeakUse;
     private ?int $logSlowerThan;
@@ -50,16 +50,6 @@ class NanoTimer
     }
 
     /**
-     * To string
-     *
-     * @return string
-     */
-    public function __toString() : string
-    {
-        return $this->table();
-    }
-
-    /**
      * Take measurement
      *
      * @param string $label
@@ -79,11 +69,12 @@ class NanoTimer
     /**
      * Table report
      *
+     * @param bool $includeData
      * @return string
      */
-    public function table() : string
+    public function table(bool $includeData = true) : string
     {
-        $data = $this->data();
+        $data = $this->data($includeData);
 
         if ($data === null) {
             return '';
@@ -145,9 +136,11 @@ class NanoTimer
     /**
      * Get report data
      *
+     * @param bool $includeData
+     *
      * @return ?AbstractMeasure[]
      */
-    public function data() : ?array
+    public function data(bool $includeData = true) : ?array
     {
         $total = hrtime(true) - $this->start;
 
@@ -155,15 +148,15 @@ class NanoTimer
             return null;
         }
 
-        $data = $this->measures;
+        $measures = $includeData ? $this->measures : [];
 
-        $data[] = new TimeMeasure('total', $total);
+        $measures[] = new TimeMeasure('total', $total);
 
         if ($this->logMemoryPeakUse) {
-            $data[] = new MemoryMeasure('memory peak use');
+            $measures[] = new MemoryMeasure('memory peak use');
         }
 
-        return $data;
+        return $measures;
     }
 
     /**

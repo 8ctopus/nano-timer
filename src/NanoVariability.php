@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Oct8pus\NanoTimer;
 
-class NanoVariability
+class NanoVariability extends AbstractMeasures
 {
     private readonly float $start;
     private float $last;
@@ -23,16 +23,6 @@ class NanoVariability
 
         $this->start = hrtime(true);
         $this->last = $this->start;
-    }
-
-    /**
-     * To string
-     *
-     * @return string
-     */
-    public function __toString() : string
-    {
-        return $this->table();
     }
 
     /**

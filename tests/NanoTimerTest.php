@@ -21,13 +21,10 @@ final class NanoTimerTest extends TestCase
     {
         $timer = new NanoTimer();
 
-        $microtime = microtime(true);
-
-        time_sleep_until($microtime + 0.1);
+        usleep(100 * 1000);
 
         $timer->measure('100ms sleep');
-
-        $delta = round((microtime(true) - $microtime) * 1000, 0, PHP_ROUND_HALF_UP);
+        $delta = round((hrtime(true) - $timer->start()) / (1000 * 1000), 0, PHP_ROUND_HALF_UP);
 
         $line = $timer->line();
 
