@@ -6,22 +6,22 @@ namespace Oct8pus\NanoTimer;
 
 class TimeMeasure extends AbstractMeasure
 {
-    private readonly int $hrtime;
+    private readonly int $delta;
 
-    public function __construct(string $label, int $hrtime)
+    public function __construct(string $label, int $delta)
     {
         $this->label = $label;
-        $this->hrtime = $hrtime;
+        $this->delta = $delta;
     }
 
     public function hrtime() : int
     {
-        return $this->hrtime;
+        return $this->delta;
     }
 
     public function value() : int
     {
-        return (int) round($this->hrtime / 1000000, 0, PHP_ROUND_HALF_UP);
+        return (int) round($this->delta / 1000000, 0, PHP_ROUND_HALF_UP);
     }
 
     public function valueStr() : string
