@@ -45,7 +45,7 @@ class Compare
             $value1 = $data1[$i]->value();
             $value2 = $data2[$i]->value();
 
-            $table .= $data1[$i]->label($maxLabel) . $this->pad($value1, $maxValue) .  $this->pad($value2, $maxValue) . sprintf(" %+.0f", $this->percentage($value1, $value2)) . "%\n";
+            $table .= $data1[$i]->label($maxLabel) . $this->pad($value1, $maxValue) . $this->pad($value2, $maxValue) . sprintf(' %+.0f', $this->percentage($value1, $value2)) . "%\n";
         }
 
         return $table;

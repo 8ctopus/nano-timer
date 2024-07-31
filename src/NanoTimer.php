@@ -70,6 +70,7 @@ class NanoTimer extends AbstractMeasures
      * Table report
      *
      * @param bool $includeData
+     *
      * @return string
      */
     public function table(bool $includeData = true) : string

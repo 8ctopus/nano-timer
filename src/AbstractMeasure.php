@@ -14,6 +14,7 @@ abstract class AbstractMeasure
     }
 
     abstract public function value() : int;
+
     abstract public function valueStr() : string;
 
     public function colon() : string

@@ -7,7 +7,6 @@ namespace Tests;
 use Oct8pus\NanoTimer\NanoTimer;
 use PHPUnit\Framework\TestCase;
 
-
 /**
  * @internal
  *

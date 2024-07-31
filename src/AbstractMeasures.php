@@ -17,7 +17,10 @@ abstract class AbstractMeasures
     }
 
     abstract public function measure(string $label) : self;
+
     abstract public function table(bool $includeData = true) : string;
+
     abstract public function data(bool $includeData = true) : ?array;
+
     abstract public function last() : AbstractMeasure;
 }
