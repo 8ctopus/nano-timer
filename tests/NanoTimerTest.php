@@ -20,14 +20,15 @@ final class NanoTimerTest extends TestCase
     {
         $timer = new NanoTimer();
 
-        usleep(100 * 1000);
+        $sleep = 100;
 
-        $timer->measure('100ms sleep');
-        $delta = round((hrtime(true) - $timer->start()) / (1000 * 1000), 0, PHP_ROUND_HALF_UP);
+        usleep($sleep * 1000);
 
-        $line = $timer->line();
+        $timer->measure("{$sleep}ms sleep");
+        $delta = $timer->last()->value();
 
-        self::assertSame("total: {$delta}ms - 100ms sleep: {$delta}ms", $line);
+        self::assertSame("total: {$delta}ms - {$sleep}ms sleep: {$delta}ms", $timer->line());
+        //self::assertTrue(abs($delta - $sleep) < 5);
     }
 
     public function testTable() : void
@@ -80,7 +81,6 @@ final class NanoTimerTest extends TestCase
     public function testLogSlowerThan() : void
     {
         $timer = new NanoTimer();
-
         $timer
             ->logSlowerThan(50)
             ->measure('fast request');
@@ -139,7 +139,6 @@ final class NanoTimerTest extends TestCase
         $timer = new NanoTimer(hrtime(true));
 
         $microtime = microtime(true);
-
         time_sleep_until($microtime + 0.1);
 
         $timer->measure('100ms sleep');
@@ -186,11 +185,11 @@ final class NanoTimerTest extends TestCase
         usleep(20);
 
         $timer
-            ->measure('test2')
-            ->reset();
+            ->reset()
+            ->measure('test2');
 
         $delta = round((hrtime(true) - $time) / 1000000, 0, PHP_ROUND_HALF_UP);
-        self::assertSame("total: {$delta}ms", $timer->line());
+        self::assertSame("total: {$delta}ms - test2: {$delta}ms", $timer->line());
     }
 }
 

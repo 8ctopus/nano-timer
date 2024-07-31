@@ -24,7 +24,7 @@ final class TimeMeasureTest extends TestCase
         $measure = new TimeMeasure($label, $hrtime);
 
         self::assertSame($label, $measure->label());
-        self::assertSame($hrtime, $measure->hrtime());
+        self::assertSame($hrtime, $measure->delta());
         self::assertSame($ms, $measure->value());
 
         $value = "{$ms}ms";
