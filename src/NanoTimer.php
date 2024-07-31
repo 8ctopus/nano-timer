@@ -143,15 +143,15 @@ class NanoTimer extends AbstractMeasures
      */
     public function data(bool $includeData = true) : ?array
     {
-        $total = hrtime(true) - $this->start;
+        $total = $this->total();
 
-        if (isset($this->logSlowerThan) && $total < $this->logSlowerThan * 1000000) {
+        if (isset($this->logSlowerThan) && $total->value() < $this->logSlowerThan) {
             return null;
         }
 
         $measures = $includeData ? $this->measures : [];
 
-        $measures[] = new TimeMeasure('total', $total);
+        $measures[] = $total;
 
         if ($this->logMemoryPeakUse) {
             $measures[] = new MemoryMeasure('memory peak use');
@@ -167,7 +167,13 @@ class NanoTimer extends AbstractMeasures
      */
     public function total() : TimeMeasure
     {
-        return new TimeMeasure('total', hrtime(true) - $this->start);
+        $sum = 0;
+
+        foreach ($this->measures as $measure) {
+            $sum += $measure->hrtime();
+        }
+
+        return new TimeMeasure('total', $sum);
     }
 
     /**
@@ -177,9 +183,7 @@ class NanoTimer extends AbstractMeasures
      */
     public function last() : AbstractMeasure
     {
-        $count = count($this->measures);
-
-        return $this->measures[$count - 1];
+        return end($this->measures);
     }
 
     /**
