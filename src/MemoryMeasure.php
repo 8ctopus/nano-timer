@@ -19,10 +19,13 @@ class MemoryMeasure extends AbstractMeasure
         return $this->memory;
     }
 
-    public function value() : string
+    public function value() : int
     {
-        $memory = (string) round($this->memory / (1024 * 1024), 1, PHP_ROUND_HALF_UP);
+        return (int) round($this->memory / (1024 * 1024), 1, PHP_ROUND_HALF_UP);
+    }
 
-        return $memory . 'MB';
+    public function valueStr() : string
+    {
+        return $this->value() . 'MB';
     }
 }

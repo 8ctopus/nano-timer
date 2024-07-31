@@ -73,7 +73,7 @@ class NanoVariability
         // get label max length
         foreach ($data as $row) {
             $maxLabel = max($maxLabel, strlen($row->label()));
-            $maxValue = max($maxValue, strlen($row->value()));
+            $maxValue = max($maxValue, strlen($row->valueStr()));
         }
 
         ++$maxLabel;

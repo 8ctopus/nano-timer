@@ -8,12 +8,13 @@ abstract class AbstractMeasure
 {
     protected string $label;
 
-    public function label() : string
+    public function label(int $pad = 0) : string
     {
-        return $this->label;
+        return str_pad($this->label, $pad, ' ', STR_PAD_RIGHT);
     }
 
-    abstract public function value() : string;
+    abstract public function value() : int;
+    abstract public function valueStr() : string;
 
     public function colon() : string
     {
@@ -22,6 +23,6 @@ abstract class AbstractMeasure
 
     public function pad(int $labelPad, int $valuePad) : string
     {
-        return str_pad($this->label(), $labelPad, ' ', STR_PAD_RIGHT) . str_pad($this->value(), $valuePad, ' ', STR_PAD_LEFT);
+        return $this->label($labelPad) . str_pad($this->valueStr(), $valuePad, ' ', STR_PAD_LEFT);
     }
 }
