@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \Oct8pus\NanoTimer\MemoryMeasure
  * @covers \Oct8pus\NanoTimer\NanoTimer
+ * @covers \Oct8pus\NanoTimer\AbstractMeasures
  * @covers \Oct8pus\NanoTimer\TimeMeasure
  */
 final class NanoTimerTest extends TestCase
@@ -179,7 +180,6 @@ final class NanoTimerTest extends TestCase
         $time = hrtime(true);
 
         $timer = new NanoTimerMock($time);
-
         $timer->measure('test1');
 
         usleep(20);
@@ -190,6 +190,13 @@ final class NanoTimerTest extends TestCase
 
         $delta = round((hrtime(true) - $time) / 1000000, 0, PHP_ROUND_HALF_UP);
         self::assertSame("total: {$delta}ms - test2: {$delta}ms", $timer->line());
+
+        $timer
+            ->reset(false)
+            ->measure('test3');
+
+        $delta = $timer->last()->value();
+        self::assertSame("total: {$delta}ms - test3: {$delta}ms", $timer->line());
     }
 }
 
