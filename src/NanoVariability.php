@@ -94,9 +94,9 @@ class NanoVariability extends AbstractMeasures
         $values = [];
 
         foreach ($measures as $measure) {
-            $values[] = $measure->hrtime();
-            $min = min($min, $measure->hrtime());
-            $max = max($max, $measure->hrtime());
+            $values[] = $measure->delta();
+            $min = min($min, $measure->delta());
+            $max = max($max, $measure->delta());
         }
 
         sort($values);

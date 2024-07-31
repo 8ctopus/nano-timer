@@ -14,7 +14,7 @@ class TimeMeasure extends AbstractMeasure
         $this->delta = $delta;
     }
 
-    public function hrtime() : int
+    public function delta() : int
     {
         return $this->delta;
     }

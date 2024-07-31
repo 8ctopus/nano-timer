@@ -170,7 +170,7 @@ class NanoTimer extends AbstractMeasures
         $sum = 0;
 
         foreach ($this->measures as $measure) {
-            $sum += $measure->hrtime();
+            $sum += $measure->delta();
         }
 
         return new TimeMeasure('total', $sum);
