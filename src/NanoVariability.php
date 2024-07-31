@@ -112,10 +112,10 @@ class NanoVariability extends AbstractMeasures
             $measures = [];
         }
 
-        $measures[] = new TimeMeasure('average', (int) round(array_sum($values) / $count));
-        $measures[] = new TimeMeasure('median', (int) round($median));
-        $measures[] = new TimeMeasure('minimum', (int) round($min));
-        $measures[] = new TimeMeasure('maximum', (int) round($max));
+        $measures[] = new TimeMeasure('average', (int) round(array_sum($values) / $count, 0, PHP_ROUND_HALF_UP));
+        $measures[] = new TimeMeasure('median', $median);
+        $measures[] = new TimeMeasure('minimum', $min);
+        $measures[] = new TimeMeasure('maximum', $max);
 
         return $measures;
     }
