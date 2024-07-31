@@ -18,6 +18,8 @@ final class NanoVariabilityTest extends TestCase
     {
         $variability = new NanoVariability();
 
+        self::assertEmpty($variability->table());
+
         usleep(20000);
 
         $variability->measure('lap 1');

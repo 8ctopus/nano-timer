@@ -88,6 +88,11 @@ class NanoVariability extends AbstractMeasures
     public function data(bool $includeData = true) : ?array
     {
         $measures = $this->measures;
+        $count = count($measures);
+
+        if ($count === 0) {
+            return null;
+        }
 
         $min = PHP_INT_MAX;
         $max = 0;
@@ -100,7 +105,6 @@ class NanoVariability extends AbstractMeasures
         }
 
         sort($values);
-        $count = count($measures);
 
         if ($count % 2 === 1) {
             $median = $values[ceil($count / 2) - 1];
