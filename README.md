@@ -16,8 +16,9 @@ The main reason I built this timer was to analyze slow requests that occur from 
 
 ## features
 
-- measure timing between various events
+- measure timing between events
 - measure variability for the same code loop
+- compare results side by side
 - log only requests slower than a given threshold
 - automatically log when the destructor is called
 - measure peak memory use
@@ -26,7 +27,7 @@ The main reason I built this timer was to analyze slow requests that occur from 
 
 - `composer require 8ctopus/nano-timer`
 
-## simple timing
+## simple timing measurement
 
 ```php
 use Oct8pus\NanoTimer\NanoTimer;
@@ -146,7 +147,7 @@ maximum 16ms
 
 ## compare
 
-There is also the option to compare results for timings and variability.
+Results can be compared both for timings and variability.
 
 ```php
 $v1 = new NanoVariability();
