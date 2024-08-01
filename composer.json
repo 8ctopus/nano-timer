@@ -1,8 +1,8 @@
 {
     "name": "8ctopus/nano-timer",
     "type": "library",
-    "description": "Yet another php timer: measure time between events, log only requests slower than a given threshold, automatically log when the destructor is called and measure peak memory use",
-    "keywords": ["timer", "profiler", "performance analysis"],
+    "description": "Measure time between events, variability and compare results.",
+    "keywords": ["timer", "variability", "compare", "profiler", "speed"],
     "homepage": "https://github.com/8ctopus/nano-timer",
     "license": "MIT",
     "authors": [
