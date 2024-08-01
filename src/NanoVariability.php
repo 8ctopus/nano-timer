@@ -94,8 +94,8 @@ class NanoVariability extends AbstractMeasures
             return null;
         }
 
-        $min = PHP_INT_MAX;
-        $max = 0;
+        $min = (int) PHP_INT_MAX;
+        $max = (int) 0;
         $values = [];
 
         foreach ($measures as $measure) {
@@ -118,7 +118,7 @@ class NanoVariability extends AbstractMeasures
         }
 
         $measures[] = new TimeMeasure('average', (int) round(array_sum($values) / $count, 0, PHP_ROUND_HALF_UP));
-        $measures[] = new TimeMeasure('median', $median);
+        $measures[] = new TimeMeasure('median', (int) $median);
         $measures[] = new TimeMeasure('minimum', $min);
         $measures[] = new TimeMeasure('maximum', $max);
 
