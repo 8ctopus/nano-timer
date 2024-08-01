@@ -128,12 +128,10 @@ class NanoVariability extends AbstractMeasures
     /**
      * Get last measurement
      *
-     * @return TimeMeasure
+     * @return TimeMeasure|false
      */
-    public function last() : AbstractMeasure
+    public function last() : TimeMeasure|false
     {
-        $count = count($this->measures);
-
-        return $this->measures[$count - 1];
+        return end($this->measures);
     }
 }

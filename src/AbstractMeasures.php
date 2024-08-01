@@ -20,7 +20,14 @@ abstract class AbstractMeasures
 
     abstract public function table(bool $includeData = true) : string;
 
+    /**
+     * [data description]
+     *
+     * @param  bool $includeData
+     *
+     * @return ?array<AbstractMeasure>
+     */
     abstract public function data(bool $includeData = true) : ?array;
 
-    abstract public function last() : AbstractMeasure;
+    abstract public function last() : TimeMeasure|false;
 }
