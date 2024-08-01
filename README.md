@@ -27,6 +27,10 @@ The main reason I built this timer was to analyze slow requests that occur from 
 
 - `composer require 8ctopus/nano-timer`
 
+## demo
+
+There's `demo.php` in the project root directory that showcases most examples below.
+
 ## simple timing measurement
 
 ```php
