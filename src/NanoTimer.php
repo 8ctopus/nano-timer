@@ -207,7 +207,7 @@ class NanoTimer extends AbstractMeasures
      *
      * @return self
      */
-    public function reset(bool $keepStart = true) : self
+    public function reset(bool $keepStart) : self
     {
         $this->measures = [];
 

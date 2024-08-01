@@ -195,7 +195,7 @@ final class NanoTimerTest extends TestCase
         usleep(20);
 
         $timer
-            ->reset()
+            ->reset(true)
             ->measure('test2');
 
         $delta = round((hrtime(true) - $time) / 1000000, 0, PHP_ROUND_HALF_UP);

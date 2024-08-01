@@ -30,4 +30,6 @@ abstract class AbstractMeasures
     abstract public function data(bool $includeData = true) : ?array;
 
     abstract public function last() : false|TimeMeasure;
+
+    abstract public function reset(bool $keepStart) : self;
 }

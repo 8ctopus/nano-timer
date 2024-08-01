@@ -134,4 +134,22 @@ class NanoVariability extends AbstractMeasures
     {
         return end($this->measures);
     }
+
+    /**
+     * Reset all measurements
+     *
+     * @param bool $keepStart
+     *
+     * @return self
+     */
+    public function reset(bool $keepStart) : self
+    {
+        $this->measures = [];
+
+        if ($keepStart === false) {
+            $this->start = hrtime(true);
+        }
+
+        return $this;
+    }
 }

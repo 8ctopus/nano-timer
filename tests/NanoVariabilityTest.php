@@ -102,5 +102,8 @@ final class NanoVariabilityTest extends TestCase
 
         self::assertSame($output, $variability->table());
         self::assertSame($output, (string) $variability);
+
+        $variability->reset(true);
+        self::assertEmpty($variability->table());
     }
 }
