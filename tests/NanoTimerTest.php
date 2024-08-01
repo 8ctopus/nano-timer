@@ -17,6 +17,13 @@ use PHPUnit\Framework\TestCase;
  */
 final class NanoTimerTest extends TestCase
 {
+    public function testEmpty() : void
+    {
+        $timer = new NanoTimer();
+
+        self::assertSame('', $timer->line());
+    }
+
     public function testLine() : void
     {
         $timer = new NanoTimer();
