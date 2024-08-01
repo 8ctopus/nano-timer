@@ -53,6 +53,10 @@ class Compare
 
     private function percentage(int $value1, int $value2) : float
     {
+        if ($value1 === 0) {
+            return 0;
+        }
+
         return 100 * ($value2 - $value1) / $value1;
     }
 
