@@ -145,7 +145,7 @@ class NanoTimer extends AbstractMeasures
     {
         $total = $this->total();
 
-        if (isset($this->logSlowerThan) && $total->value() < $this->logSlowerThan) {
+        if (!$total || isset($this->logSlowerThan) && $total->value() < $this->logSlowerThan) {
             return null;
         }
 
@@ -163,10 +163,14 @@ class NanoTimer extends AbstractMeasures
     /**
      * Get total
      *
-     * @return TimeMeasure
+     * @return ?TimeMeasure
      */
-    public function total() : TimeMeasure
+    public function total() : ?TimeMeasure
     {
+        if (count($this->measures) === 0) {
+            return null;
+        }
+
         $sum = 0;
 
         foreach ($this->measures as $measure) {

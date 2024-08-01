@@ -20,9 +20,9 @@ class Compare
         $data1 = $this->v1->data($includeData);
         $data2 = $this->v2->data($includeData);
 
-        $count = count($data1);
+        $count = count($data1 ?? []);
 
-        if (!$data1 || !$data2 || $count !== count($data2)) {
+        if (!$data1 || !$data2 || !$count || $count !== count($data2)) {
             return '';
         }
 
