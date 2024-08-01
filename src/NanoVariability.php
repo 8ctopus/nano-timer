@@ -118,6 +118,8 @@ class NanoVariability extends AbstractMeasures
         }
 
         $measures[] = new TimeMeasure('average', (int) round(array_sum($values) / $count, 0, PHP_ROUND_HALF_UP));
+
+        // github actions test fail because median ends up being a float
         $measures[] = new TimeMeasure('median', (int) $median);
         $measures[] = new TimeMeasure('minimum', $min);
         $measures[] = new TimeMeasure('maximum', $max);
