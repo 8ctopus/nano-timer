@@ -29,7 +29,7 @@ final class CompareTest extends TestCase
         $delta = $t1->last()->value();
 
         $output = <<<OUTPUT
-        total  {$delta} {$delta} +0%
+        total  {$delta} {$delta} -
 
         OUTPUT;
 
