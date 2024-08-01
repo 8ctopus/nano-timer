@@ -12,7 +12,7 @@ Yet another php timer
 
 ## why another timer?
 
-The main reason for this timer is to analyze slow requests that occur from time to time in production where using tools such as [XDebug](https://github.com/xdebug/xdebug) or [php SPX](https://github.com/NoiseByNorthwest/php-spx) is not advisable.
+The main reason I built this timer was to analyze slow requests that occur from time to time on the production server where using tools such as [XDebug](https://github.com/xdebug/xdebug) or [php SPX](https://github.com/NoiseByNorthwest/php-spx) is not advisable.
 
 ## features
 
@@ -142,6 +142,41 @@ average 14ms
 median  16ms
 minimum  7ms
 maximum 16ms
+```
+
+## compare
+
+There is also the option to compare results for timings and variability.
+
+```php
+$v1 = new NanoVariability();
+
+for ($i = 1; $i < 6; ++$i) {
+    usleep(500 + rand(0, 100));
+    $v1->measure("lap {$i}");
+}
+
+$v2 = new NanoVariability();
+
+for ($i = 1; $i < 6; ++$i) {
+    usleep(500 + rand(0, 100));
+    $v2->measure("lap {$i}");
+}
+
+$compare = new Compare($v1, $v2);
+```
+
+```txt
+compare
+lap 1     7 13 +86%
+lap 2    15 15 +0%
+lap 3    15 15 +0%
+lap 4    15 15 +0%
+lap 5    15 16 +7%
+average  13 15 +15%
+median   15 15 +0%
+minimum   7 13 +86%
+maximum  15 16 +7%
 ```
 
 ## run tests
