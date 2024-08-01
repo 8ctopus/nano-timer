@@ -110,7 +110,7 @@ class NanoVariability extends AbstractMeasures
             $median = $values[floor($count / 2)];
         } else {
             $middle = $count / 2;
-            $median = ($values[$middle -1] + $values[$middle]) / 2;
+            $median = ($values[$middle - 1] + $values[$middle]) / 2;
         }
 
         if (!$includeData) {
