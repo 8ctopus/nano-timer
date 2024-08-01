@@ -183,9 +183,9 @@ class NanoTimer extends AbstractMeasures
     /**
      * Get last measurement
      *
-     * @return TimeMeasure|false
+     * @return false|TimeMeasure
      */
-    public function last() : TimeMeasure|false
+    public function last() : false|TimeMeasure
     {
         return end($this->measures);
     }

@@ -23,11 +23,11 @@ abstract class AbstractMeasures
     /**
      * [data description]
      *
-     * @param  bool $includeData
+     * @param bool $includeData
      *
      * @return ?array<AbstractMeasure>
      */
     abstract public function data(bool $includeData = true) : ?array;
 
-    abstract public function last() : TimeMeasure|false;
+    abstract public function last() : false|TimeMeasure;
 }
