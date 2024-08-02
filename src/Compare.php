@@ -6,19 +6,19 @@ namespace Oct8pus\NanoTimer;
 
 class Compare
 {
-    private readonly AbstractMeasures $v1;
-    private readonly AbstractMeasures $v2;
+    private readonly AbstractMeasures $measures1;
+    private readonly AbstractMeasures $measures2;
 
-    public function __construct(AbstractMeasures $v1, AbstractMeasures $v2)
+    public function __construct(AbstractMeasures $measures1, AbstractMeasures $measures2)
     {
-        $this->v1 = $v1;
-        $this->v2 = $v2;
+        $this->measures1 = $measures1;
+        $this->measures2 = $measures2;
     }
 
     public function table(bool $includeData = false) : string
     {
-        $data1 = $this->v1->data($includeData);
-        $data2 = $this->v2->data($includeData);
+        $data1 = $this->measures1->data($includeData);
+        $data2 = $this->measures2->data($includeData);
 
         $count = count($data1 ?? []);
 
