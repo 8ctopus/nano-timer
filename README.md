@@ -122,30 +122,31 @@ $timer
 nanotimer - total: 614ms - destruct: 614ms
 ```
 
-## measure speed variability
+## measure variability
 
 Sometimes you need to understand the speed variability of the same code loop.
 
 ```php
-$variability = new NanoVariability();
+$variability1 = new NanoVariability();
 
 for ($i = 1; $i < 6; ++$i) {
-    usleep(1000);
-    $variability->measure("lap {$i}");
+    $ms = (1000 + rand(0, +200)) * 10;
+    usleep($ms);
+    $variability1->measure("lap {$i}");
 }
 
-echo $variability->table(true);
+echo $variability1->table(true) . "\n";
 ```
 
 ```txt
-lap 1    7ms
+lap 1   13ms
 lap 2   16ms
 lap 3   16ms
 lap 4   16ms
-lap 5   16ms
-average 14ms
+lap 5   15ms
+average 15ms
 median  16ms
-minimum  7ms
+minimum 13ms
 maximum 16ms
 ```
 

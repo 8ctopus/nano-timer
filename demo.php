@@ -11,7 +11,7 @@ $hrtime = hrtime(true);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-echo 'measure performance' . PHP_EOL;
+echo "measure performance\n\n";
 
 $timer = (new NanoTimer($hrtime))
     ->logSlowerThan(0)
@@ -19,7 +19,7 @@ $timer = (new NanoTimer($hrtime))
 
 $timer->measure('autoload and constructor');
 
-usleep(200000);
+usleep(200 * 1000);
 
 $timer->measure('200ms sleep');
 
@@ -33,31 +33,33 @@ foreach (range(0, 50000) as $i) {
 
 $timer->measure('pow range 0-50000');
 
-echo $timer->table() . PHP_EOL;
-echo $timer->line() . PHP_EOL;
+echo $timer->table(true) . "\n";
+echo $timer->line() . "\n";
 
-echo PHP_EOL . 'measure variability' . PHP_EOL;
+echo "\nmeasure variability\n\n";
 
-$v1 = new NanoVariability();
-
-for ($i = 1; $i < 6; ++$i) {
-    usleep(500 + rand(0, 100));
-    $v1->measure("lap {$i}");
-}
-
-echo $v1->table() . PHP_EOL;
-
-$v2 = new NanoVariability();
+$variability1 = new NanoVariability();
 
 for ($i = 1; $i < 6; ++$i) {
-    usleep(500 + rand(0, 100));
-    $v2->measure("lap {$i}");
+    $ms = (1000 + rand(0, +200)) * 10;
+    usleep($ms);
+    $variability1->measure("lap {$i}");
 }
 
-echo $v2->table() . PHP_EOL;
+echo $variability1->table(true) . "\n";
 
-echo 'compare' . PHP_EOL;
+$variability2 = new NanoVariability();
 
-$compare = new Compare($v1, $v2);
+for ($i = 1; $i < 6; ++$i) {
+    $ms = (1000 + rand(0, +300)) * 10;
+    usleep($ms);
+    $variability2->measure("lap {$i}");
+}
+
+echo $variability2->table(true) . "\n";
+
+echo "compare\n\n";
+
+$compare = new Compare($variability1, $variability2);
 
 echo $compare->table(true);
