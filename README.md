@@ -184,11 +184,3 @@ median   15 15 +0%
 minimum   7 13 +86%
 maximum  15 16 +7%
 ```
-
-## run tests
-
-    composer test
-
-## clean code
-
-    composer fix(-risky)
