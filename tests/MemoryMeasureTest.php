@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Oct8pus\NanoTimer\AbstractMeasure;
 use Oct8pus\NanoTimer\MemoryMeasure;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Oct8pus\NanoTimer\AbstractMeasure
- * @covers \Oct8pus\NanoTimer\MemoryMeasure
  */
+#[CoversClass(AbstractMeasure::class)]
+#[CoversClass(MemoryMeasure::class)]
 final class MemoryMeasureTest extends TestCase
 {
     public function test() : void

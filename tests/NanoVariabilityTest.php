@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests;
 
 use Oct8pus\NanoTimer\NanoVariability;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Oct8pus\NanoTimer\NanoVariability
  */
+#[CoversClass(NanoVariability::class)]
 final class NanoVariabilityTest extends TestCase
 {
     public function testTable() : void

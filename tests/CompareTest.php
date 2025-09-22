@@ -6,13 +6,13 @@ namespace Tests;
 
 use Oct8pus\NanoTimer\Compare;
 use Oct8pus\NanoTimer\NanoTimer;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- *
- * @covers \Oct8pus\NanoTimer\Compare
  */
+#[CoversClass(Compare::class)]
 final class CompareTest extends TestCase
 {
     public function test() : void
