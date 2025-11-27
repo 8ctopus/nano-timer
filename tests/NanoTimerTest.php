@@ -225,3 +225,4 @@ class NanoTimerMock extends NanoTimer
         echo $message;
     }
 }
+
